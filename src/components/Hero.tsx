@@ -262,46 +262,13 @@ const Hero: React.FC = () => {
   }, [orbitEnabled]);
 
   return (
-    <div
-      style={{
-        width: "99%",
-        height: "90vh",
-        border: "12px solid white",
-        borderRadius: 24,
-        overflow: "hidden",
-        position: "relative",
-      }}
-    >
+    <div className="w-full box-border h-[90vh] border-[12px] border-white rounded-[24px] overflow-hidden relative">
       {orbitEnabled ? (
-        <div
-          style={{
-            position: "absolute",
-            top: 20,
-            left: 20,
-            color: "white",
-            background: "rgba(0,0,0,0.6)",
-            padding: "10px 14px",
-            borderRadius: 10,
-            fontFamily: "monospace",
-            zIndex: 10,
-          }}
-        >
+        <div className="absolute top-5 left-5 text-white bg-black/60 py-2.5 px-3.5 rounded-[10px] font-mono z-10">
           Press <b>T</b> to disable orbit
         </div>
       ) : (
-        <div
-          style={{
-            position: "absolute",
-            top: 20,
-            left: 20,
-            color: "white",
-            background: "rgba(0,0,0,0.6)",
-            padding: "10px 14px",
-            borderRadius: 10,
-            fontFamily: "monospace",
-            zIndex: 10,
-          }}
-        >
+        <div className="absolute top-5 left-5 text-white bg-black/60 py-2.5 px-3.5 rounded-[10px] font-mono z-10">
           Press <b>T</b> to enable orbit
         </div>
       )}
