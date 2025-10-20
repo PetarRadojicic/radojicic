@@ -18,9 +18,75 @@ const FONT_URL = "/fonts/helvetiker_bold.typeface.json";
 const TEXT_NAME = "Petar Radojicic";
 const TEXT_ROLE = "front-end developer";
 
-const NAME_PLATE_POS: [number, number, number] = [-135, 80.2, 200];
-const NAME_PLATE_ROT: [number, number, number] = [0, -0.3, 0];
-const NAME_PLATE_SCALE = 0.8;
+const DESKTOP_NAME_PLATE_POS: [number, number, number] = [-135, 80.2, 200];
+const DESKTOP_NAME_PLATE_ROT: [number, number, number] = [0, -0.3, 0];
+const DESKTOP_NAME_PLATE_SCALE = 0.8;
+const DESKTOP_DEFAULT_POSITION: [number, number, number] = [-114.412, 139.705, 376.602];
+const DESKTOP_DEFAULT_TARGET: [number, number, number] = [0, 0, 0];
+const DESKTOP_TARGET_SHIFT_RIGHT = -160;
+
+const MOBILE_NAME_PLATE_POS: [number, number, number] = [1000, 400, 370];
+const MOBILE_NAME_PLATE_ROT: [number, number, number] = [-0.01, 1.55, 0];
+const MOBILE_NAME_PLATE_SCALE = 4.8;
+const MOBILE_DEFAULT_POSITION: [number, number, number] = [3000, 0, 0];
+const MOBILE_DEFAULT_TARGET: [number, number, number] = [0, 0, 0];
+const MOBILE_TARGET_SHIFT_RIGHT = 0;
+
+const ORBIT_POSITION: [number, number, number] = [-626.9, 1064.6, 2829.4];
+const ORBIT_TARGET: [number, number, number] = [0, 0, 0];
+const ORBIT_TARGET_SHIFT_RIGHT = 0;
+
+const MOBILE_BREAKPOINT = 768;
+const DESKTOP_BREAKPOINT = 1280;
+
+function lerp(a: number, b: number, t: number): number {
+  return a + (b - a) * t;
+}
+
+function lerpVector(
+  a: [number, number, number],
+  b: [number, number, number],
+  t: number
+): [number, number, number] {
+  return [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)];
+}
+
+function getResponsiveFactor(width: number): number {
+  if (width <= MOBILE_BREAKPOINT) return 0;
+  if (width >= DESKTOP_BREAKPOINT) return 1;
+  return (width - MOBILE_BREAKPOINT) / (DESKTOP_BREAKPOINT - MOBILE_BREAKPOINT);
+}
+
+function useResponsiveConfig() {
+  const [factor, setFactor] = useState(() => (typeof window !== 'undefined' ? getResponsiveFactor(window.innerWidth) : 1));
+
+  useEffect(() => {
+    const handleResize = () => {
+      setFactor(getResponsiveFactor(window.innerWidth));
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return useMemo(() => {
+    const namePlatePos = lerpVector(MOBILE_NAME_PLATE_POS, DESKTOP_NAME_PLATE_POS, factor);
+    const namePlateRot = lerpVector(MOBILE_NAME_PLATE_ROT, DESKTOP_NAME_PLATE_ROT, factor);
+    const namePlateScale = lerp(MOBILE_NAME_PLATE_SCALE, DESKTOP_NAME_PLATE_SCALE, factor);
+    const defaultPosition = lerpVector(MOBILE_DEFAULT_POSITION, DESKTOP_DEFAULT_POSITION, factor);
+    const defaultTarget = lerpVector(MOBILE_DEFAULT_TARGET, DESKTOP_DEFAULT_TARGET, factor);
+    const targetShiftRight = lerp(MOBILE_TARGET_SHIFT_RIGHT, DESKTOP_TARGET_SHIFT_RIGHT, factor);
+
+    return {
+      namePlatePos,
+      namePlateRot,
+      namePlateScale,
+      defaultPosition,
+      defaultTarget,
+      targetShiftRight,
+    };
+  }, [factor]);
+}
 
 function useTextMaterial() {
   return useMemo(() => {
@@ -41,14 +107,6 @@ const Model: React.FC<ModelProps> = ({ url, scale = 1 }) => {
   const { scene } = useGLTF(url) as unknown as { scene: THREE.Group };
   return <primitive object={scene} scale={scale} dispose={null} />;
 };
-
-const DEFAULT_POSITION: [number, number, number] = [-114.412, 139.705, 376.602];
-const DEFAULT_TARGET: [number, number, number] = [0, 0, 0];
-const TARGET_SHIFT_RIGHT = -160;
-
-const ORBIT_POSITION: [number, number, number] = [-626.9, 1064.6, 2829.4];
-const ORBIT_TARGET: [number, number, number] = [0, 0, 0];
-const ORBIT_TARGET_SHIFT_RIGHT = 0;
 
 function computeOffCenterTarget(
   basePos: [number, number, number],
@@ -80,20 +138,25 @@ function setOffCenterView(
   }
 }
 
-const InitialCameraView: React.FC<{ controlsRef: React.MutableRefObject<any> }> = ({
-  controlsRef,
-}) => {
+const InitialCameraView: React.FC<{
+  controlsRef: React.MutableRefObject<any>;
+  position: [number, number, number];
+  target: [number, number, number];
+  shiftRight: number;
+}> = ({ controlsRef, position, target, shiftRight }) => {
   const { camera, invalidate } = useThree();
+  
   useEffect(() => {
     setOffCenterView(
       camera as THREE.PerspectiveCamera,
       controlsRef.current,
-      DEFAULT_POSITION,
-      DEFAULT_TARGET,
-      TARGET_SHIFT_RIGHT
+      position,
+      target,
+      shiftRight
     );
     invalidate();
-  }, [camera, controlsRef, invalidate]);
+  }, [camera, controlsRef, invalidate, position, target, shiftRight]);
+  
   return null;
 };
 
@@ -116,9 +179,12 @@ const ToggleOrbit: React.FC<{
 const CameraTransition: React.FC<{
   controlsRef: React.MutableRefObject<any>;
   orbitEnabled: boolean;
+  defaultPosition: [number, number, number];
+  defaultTarget: [number, number, number];
+  targetShiftRight: number;
   speed?: number;
   stopEps?: number;
-}> = ({ controlsRef, orbitEnabled, speed = 4, stopEps = 0.1 }) => {
+}> = ({ controlsRef, orbitEnabled, defaultPosition, defaultTarget, targetShiftRight, speed = 4, stopEps = 0.1 }) => {
   const { camera, invalidate } = useThree();
 
   const toPos = useRef(new THREE.Vector3());
@@ -142,10 +208,13 @@ const CameraTransition: React.FC<{
     };
   }, [controlsRef]);
 
-  const heroPos = useRef(new THREE.Vector3(...DEFAULT_POSITION));
-  const heroTarget = useRef(
-    computeOffCenterTarget(DEFAULT_POSITION, DEFAULT_TARGET, TARGET_SHIFT_RIGHT)
-  );
+  const heroPos = useRef(new THREE.Vector3());
+  const heroTarget = useRef(new THREE.Vector3());
+
+  useEffect(() => {
+    heroPos.current.set(...defaultPosition);
+    heroTarget.current.copy(computeOffCenterTarget(defaultPosition, defaultTarget, targetShiftRight));
+  }, [defaultPosition, defaultTarget, targetShiftRight]);
 
   const orbitPos = useRef(new THREE.Vector3(...ORBIT_POSITION));
   const orbitTarget = useRef(
@@ -197,12 +266,17 @@ const CameraTransition: React.FC<{
   return null;
 };
 
-const Nameplate3D: React.FC<{ hidden?: boolean }> = ({ hidden }) => {
+const Nameplate3D: React.FC<{
+  hidden?: boolean;
+  position: [number, number, number];
+  rotation: [number, number, number];
+  scale: number;
+}> = ({ hidden, position, rotation, scale }) => {
   const material = useTextMaterial();
   if (hidden) return null;
 
   return (
-    <group position={NAME_PLATE_POS} rotation={NAME_PLATE_ROT} scale={NAME_PLATE_SCALE}>
+    <group position={position} rotation={rotation} scale={scale}>
       <Text3D
         font={FONT_URL}
         size={16}
@@ -236,9 +310,33 @@ const Nameplate3D: React.FC<{ hidden?: boolean }> = ({ hidden }) => {
   );
 };
 
+const getWindowSafe = () => (typeof window !== 'undefined' ? window : (undefined as unknown as Window));
+
 const Hero: React.FC = () => {
   const [orbitEnabled, setOrbitEnabled] = useState(false);
+  const [isMobileOrTablet, setIsMobileOrTablet] = useState<boolean>(() => {
+    const w = getWindowSafe();
+    return !!w && w.innerWidth < 1280;
+  });
+
   const controlsRef = useRef<any>(null);
+  const config = useResponsiveConfig();
+
+  useEffect(() => {
+    const w = getWindowSafe();
+    if (!w) return;
+    const compute = () => {
+      const result = w.innerWidth < 1280;
+      setIsMobileOrTablet(result);
+    };
+    compute();
+    w.addEventListener('resize', compute);
+    w.addEventListener('orientationchange', compute);
+    return () => {
+      w.removeEventListener('resize', compute);
+      w.removeEventListener('orientationchange', compute);
+    };
+  }, []);
 
   useEffect(() => {
     if (orbitEnabled) {
@@ -263,17 +361,37 @@ const Hero: React.FC = () => {
 
   return (
     <div className="w-full box-border h-[90vh] border-[12px] border-white rounded-[24px] overflow-hidden relative">
-      {orbitEnabled ? (
-        <div className="absolute top-5 left-5 text-white bg-black/60 py-2.5 px-3.5 rounded-[10px] font-mono z-10">
-          Press <b>T</b> to disable orbit
-        </div>
-      ) : (
-        <div className="absolute top-5 left-5 text-white bg-black/60 py-2.5 px-3.5 rounded-[10px] font-mono z-10">
-          Press <b>T</b> to enable orbit
-        </div>
+      {!isMobileOrTablet && (
+        orbitEnabled ? (
+          <div className="absolute top-5 left-5 text-white bg-black/60 py-2.5 px-3.5 rounded-[10px] font-mono z-10">
+            Press <b>T</b> to disable orbit
+          </div>
+        ) : (
+          <div className="absolute top-5 left-5 text-white bg-black/60 py-2.5 px-3.5 rounded-[10px] font-mono z-10">
+            Press <b>T</b> to enable orbit
+          </div>
+        )
       )}
 
-      <Canvas camera={{ position: DEFAULT_POSITION, fov: 50, near: 0.1, far: 20000 }}>
+      {isMobileOrTablet && (
+        <button
+          type="button"
+          aria-pressed={orbitEnabled}
+          onClick={() => setOrbitEnabled((v) => !v)}
+          className={[
+            "absolute left-1/2 -translate-x-1/2 bottom-5 z-20",
+            "px-5 py-3 rounded-full backdrop-blur",
+            "bg-white/10 border border-white/20",
+            "shadow-xl active:scale-[0.98] transition",
+            "text-white font-medium tracking-wide",
+            "select-none"
+          ].join(' ')}
+        >
+          {orbitEnabled ? 'Disable Orbit' : 'Enable Orbit'}
+        </button>
+      )}
+
+      <Canvas camera={{ position: config.defaultPosition, fov: 50, near: 0.1, far: 20000 }} style={{ touchAction: orbitEnabled ? "none" : "pan-y" }}>
         <color attach="background" args={["#111"]} />
 
         <Suspense fallback={null}>
@@ -282,7 +400,12 @@ const Hero: React.FC = () => {
             <Center>
               <Model url="/models/model.glb" />
 
-              <Nameplate3D hidden={orbitEnabled} />
+              <Nameplate3D
+                hidden={orbitEnabled}
+                position={config.namePlatePos}
+                rotation={config.namePlateRot}
+                scale={config.namePlateScale}
+              />
             </Center>
           </Bounds>
           <ContactShadows opacity={0.4} blur={2.5} far={10} resolution={1024} frames={1} />
@@ -300,8 +423,19 @@ const Hero: React.FC = () => {
           minDistance={0.5}
         />
 
-        <InitialCameraView controlsRef={controlsRef} />
-        <CameraTransition controlsRef={controlsRef} orbitEnabled={orbitEnabled} />
+        <InitialCameraView
+          controlsRef={controlsRef}
+          position={config.defaultPosition}
+          target={config.defaultTarget}
+          shiftRight={config.targetShiftRight}
+        />
+        <CameraTransition
+          controlsRef={controlsRef}
+          orbitEnabled={orbitEnabled}
+          defaultPosition={config.defaultPosition}
+          defaultTarget={config.defaultTarget}
+          targetShiftRight={config.targetShiftRight}
+        />
         <ToggleOrbit onToggle={setOrbitEnabled} />
       </Canvas>
 
