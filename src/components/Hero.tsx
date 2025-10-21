@@ -12,6 +12,7 @@ import {
   Text3D,
 } from "@react-three/drei";
 import * as THREE from "three";
+import { useOrbitStore } from "../stores/orbitStore";
 
 const FONT_URL = "/fonts/helvetiker_bold.typeface.json";
 
@@ -365,6 +366,7 @@ const getWindowSafe = () =>
 
 const Hero: React.FC = () => {
   const [orbitEnabled, setOrbitEnabled] = useState(false);
+  const setOrbit = useOrbitStore((state) => state.setOrbit);
   const [isMobileOrTablet, setIsMobileOrTablet] = useState<boolean>(() => {
     const w = getWindowSafe();
     return !!w && w.innerWidth < 1280;
@@ -417,10 +419,14 @@ const Hero: React.FC = () => {
     document.documentElement.style.overflow = 'unset';
   }, []);
 
+  useEffect(() => {
+    setOrbit(orbitEnabled);
+  }, [orbitEnabled, setOrbit]);
+
   return (
     <div
       className={`w-full box-border ${
-        isMobileOrTablet ? 'h-[80vh]' : 'h-[90vh]'
+        isMobileOrTablet ? 'h-[75vh]' : 'h-[90vh]'
       } border-[12px] border-white rounded-[24px] overflow-hidden relative`}
     >
       {!isMobileOrTablet &&

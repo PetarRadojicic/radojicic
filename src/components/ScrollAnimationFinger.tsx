@@ -1,8 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { Player } from '@lordicon/react';
-import ICON from '../icons/finger-scroll.json';
+import ICONSCROLL from '../icons/finger-scroll.json';
+import ICONSWIPE from '../icons/finger-swipe.json';
+import { useOrbitStore } from '../stores/orbitStore';
 
-export default function PlayOnce() {
+export default function ScrollAnimationFinger() {
+  const isInOrbit = useOrbitStore((state) => state.isInOrbit);
   const playerRef = useRef<Player>(null);
 
   useEffect(() => {
@@ -25,7 +28,7 @@ export default function PlayOnce() {
     <div className="flex items-center justify-center h-[10vh]">
       <Player
         ref={playerRef}
-        icon={ICON}
+        icon={isInOrbit ? ICONSWIPE : ICONSCROLL}
         size={window.innerHeight * 0.1}
         colorize="#000000"
       />
