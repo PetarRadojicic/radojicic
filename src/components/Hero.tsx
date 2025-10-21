@@ -58,7 +58,9 @@ function getResponsiveFactor(width: number): number {
 }
 
 function useResponsiveConfig() {
-  const [factor, setFactor] = useState(() => (typeof window !== 'undefined' ? getResponsiveFactor(window.innerWidth) : 1));
+  const [factor, setFactor] = useState(() =>
+    typeof window !== 'undefined' ? getResponsiveFactor(window.innerWidth) : 1
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -70,12 +72,36 @@ function useResponsiveConfig() {
   }, []);
 
   return useMemo(() => {
-    const namePlatePos = lerpVector(MOBILE_NAME_PLATE_POS, DESKTOP_NAME_PLATE_POS, factor);
-    const namePlateRot = lerpVector(MOBILE_NAME_PLATE_ROT, DESKTOP_NAME_PLATE_ROT, factor);
-    const namePlateScale = lerp(MOBILE_NAME_PLATE_SCALE, DESKTOP_NAME_PLATE_SCALE, factor);
-    const defaultPosition = lerpVector(MOBILE_DEFAULT_POSITION, DESKTOP_DEFAULT_POSITION, factor);
-    const defaultTarget = lerpVector(MOBILE_DEFAULT_TARGET, DESKTOP_DEFAULT_TARGET, factor);
-    const targetShiftRight = lerp(MOBILE_TARGET_SHIFT_RIGHT, DESKTOP_TARGET_SHIFT_RIGHT, factor);
+    const namePlatePos = lerpVector(
+      MOBILE_NAME_PLATE_POS,
+      DESKTOP_NAME_PLATE_POS,
+      factor
+    );
+    const namePlateRot = lerpVector(
+      MOBILE_NAME_PLATE_ROT,
+      DESKTOP_NAME_PLATE_ROT,
+      factor
+    );
+    const namePlateScale = lerp(
+      MOBILE_NAME_PLATE_SCALE,
+      DESKTOP_NAME_PLATE_SCALE,
+      factor
+    );
+    const defaultPosition = lerpVector(
+      MOBILE_DEFAULT_POSITION,
+      DESKTOP_DEFAULT_POSITION,
+      factor
+    );
+    const defaultTarget = lerpVector(
+      MOBILE_DEFAULT_TARGET,
+      DESKTOP_DEFAULT_TARGET,
+      factor
+    );
+    const targetShiftRight = lerp(
+      MOBILE_TARGET_SHIFT_RIGHT,
+      DESKTOP_TARGET_SHIFT_RIGHT,
+      factor
+    );
 
     return {
       namePlatePos,
@@ -128,7 +154,11 @@ function setOffCenterView(
   baseTarget: [number, number, number],
   targetShiftRight: number
 ) {
-  const shiftedTarget = computeOffCenterTarget(basePos, baseTarget, targetShiftRight);
+  const shiftedTarget = computeOffCenterTarget(
+    basePos,
+    baseTarget,
+    targetShiftRight
+  );
   camera.position.set(...basePos);
   camera.lookAt(shiftedTarget);
   camera.updateProjectionMatrix();
@@ -145,7 +175,7 @@ const InitialCameraView: React.FC<{
   shiftRight: number;
 }> = ({ controlsRef, position, target, shiftRight }) => {
   const { camera, invalidate } = useThree();
-  
+
   useEffect(() => {
     setOffCenterView(
       camera as THREE.PerspectiveCamera,
@@ -156,7 +186,7 @@ const InitialCameraView: React.FC<{
     );
     invalidate();
   }, [camera, controlsRef, invalidate, position, target, shiftRight]);
-  
+
   return null;
 };
 
@@ -184,7 +214,15 @@ const CameraTransition: React.FC<{
   targetShiftRight: number;
   speed?: number;
   stopEps?: number;
-}> = ({ controlsRef, orbitEnabled, defaultPosition, defaultTarget, targetShiftRight, speed = 4, stopEps = 0.1 }) => {
+}> = ({
+  controlsRef,
+  orbitEnabled,
+  defaultPosition,
+  defaultTarget,
+  targetShiftRight,
+  speed = 4,
+  stopEps = 0.1,
+}) => {
   const { camera, invalidate } = useThree();
 
   const toPos = useRef(new THREE.Vector3());
@@ -196,8 +234,13 @@ const CameraTransition: React.FC<{
     const controls = controlsRef.current;
     if (!controls) return;
 
-    const handleStart = () => { isInteracting.current = true; active.current = false; };
-    const handleEnd = () => { isInteracting.current = false; };
+    const handleStart = () => {
+      isInteracting.current = true;
+      active.current = false;
+    };
+    const handleEnd = () => {
+      isInteracting.current = false;
+    };
 
     controls.addEventListener?.('start', handleStart);
     controls.addEventListener?.('end', handleEnd);
@@ -213,12 +256,18 @@ const CameraTransition: React.FC<{
 
   useEffect(() => {
     heroPos.current.set(...defaultPosition);
-    heroTarget.current.copy(computeOffCenterTarget(defaultPosition, defaultTarget, targetShiftRight));
+    heroTarget.current.copy(
+      computeOffCenterTarget(defaultPosition, defaultTarget, targetShiftRight)
+    );
   }, [defaultPosition, defaultTarget, targetShiftRight]);
 
   const orbitPos = useRef(new THREE.Vector3(...ORBIT_POSITION));
   const orbitTarget = useRef(
-    computeOffCenterTarget(ORBIT_POSITION, ORBIT_TARGET, ORBIT_TARGET_SHIFT_RIGHT)
+    computeOffCenterTarget(
+      ORBIT_POSITION,
+      ORBIT_TARGET,
+      ORBIT_TARGET_SHIFT_RIGHT
+    )
   );
 
   useEffect(() => {
@@ -250,7 +299,8 @@ const CameraTransition: React.FC<{
     invalidate();
 
     const posDone =
-      (camera as THREE.PerspectiveCamera).position.distanceTo(toPos.current) < stopEps;
+      (camera as THREE.PerspectiveCamera).position.distanceTo(toPos.current) <
+      stopEps;
     const tgtDone = lookTarget.distanceTo(toTarget.current) < stopEps;
 
     if (posDone && tgtDone) {
@@ -310,7 +360,8 @@ const Nameplate3D: React.FC<{
   );
 };
 
-const getWindowSafe = () => (typeof window !== 'undefined' ? window : (undefined as unknown as Window));
+const getWindowSafe = () =>
+  typeof window !== 'undefined' ? window : (undefined as unknown as Window);
 
 const Hero: React.FC = () => {
   const [orbitEnabled, setOrbitEnabled] = useState(false);
@@ -342,7 +393,9 @@ const Hero: React.FC = () => {
     if (orbitEnabled) {
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
-      const preventScroll = (e: WheelEvent) => { e.preventDefault(); };
+      const preventScroll = (e: WheelEvent) => {
+        e.preventDefault();
+      };
       document.addEventListener('wheel', preventScroll, { passive: false });
       return () => {
         document.body.style.overflow = 'unset';
@@ -359,19 +412,27 @@ const Hero: React.FC = () => {
     };
   }, [orbitEnabled]);
 
+  useEffect(() => {
+    document.body.style.overflow = 'unset';
+    document.documentElement.style.overflow = 'unset';
+  }, []);
+
   return (
-    <div className="w-full box-border h-[90vh] border-[12px] border-white rounded-[24px] overflow-hidden relative">
-      {!isMobileOrTablet && (
-        orbitEnabled ? (
-          <div className="absolute top-5 left-5 text-white bg-black/60 py-2.5 px-3.5 rounded-[10px] font-mono z-10">
+    <div
+      className={`w-full box-border ${
+        isMobileOrTablet ? 'h-[80vh]' : 'h-[90vh]'
+      } border-[12px] border-white rounded-[24px] overflow-hidden relative`}
+    >
+      {!isMobileOrTablet &&
+        (orbitEnabled ? (
+          <div className="absolute top-5 left-5 text-white bg-black/60 py-4 px-6 rounded-[10px] font-mono z-10 text-4xl">
             Press <b>T</b> to disable orbit
           </div>
         ) : (
-          <div className="absolute top-5 left-5 text-white bg-black/60 py-2.5 px-3.5 rounded-[10px] font-mono z-10">
+          <div className="absolute top-5 left-5 text-white bg-black/60 py-4 px-6 rounded-[10px] font-mono z-10 text-4xl">
             Press <b>T</b> to enable orbit
           </div>
-        )
-      )}
+        ))}
 
       {isMobileOrTablet && (
         <button
@@ -384,14 +445,25 @@ const Hero: React.FC = () => {
             "bg-white/10 border border-white/20",
             "shadow-xl active:scale-[0.98] transition",
             "text-white font-medium tracking-wide",
-            "select-none"
-          ].join(' ')}
+            "select-none",
+          ].join(" ")}
         >
-          {orbitEnabled ? 'Disable Orbit' : 'Enable Orbit'}
+          {orbitEnabled ? "Disable Orbit" : "Enable Orbit"}
         </button>
       )}
 
-      <Canvas camera={{ position: config.defaultPosition, fov: 50, near: 0.1, far: 20000 }} style={{ touchAction: orbitEnabled ? "none" : "pan-y" }}>
+      <Canvas
+        camera={{
+          position: config.defaultPosition,
+          fov: 50,
+          near: 0.1,
+          far: 20000,
+        }}
+        style={{
+          touchAction: orbitEnabled ? "none" : "pan-y",
+          pointerEvents: orbitEnabled ? "auto" : "none",
+        }}
+      >
         <color attach="background" args={["#111"]} />
 
         <Suspense fallback={null}>
@@ -408,11 +480,21 @@ const Hero: React.FC = () => {
               />
             </Center>
           </Bounds>
-          <ContactShadows opacity={0.4} blur={2.5} far={10} resolution={1024} frames={1} />
+          <ContactShadows
+            opacity={0.4}
+            blur={2.5}
+            far={10}
+            resolution={1024}
+            frames={1}
+          />
         </Suspense>
-
-        <Grid args={[10, 10]} cellSize={0.5} sectionSize={1} fadeDistance={20} fadeStrength={1} />
-
+        <Grid
+          args={[10, 10]}
+          cellSize={0.5}
+          sectionSize={1}
+          fadeDistance={20}
+          fadeStrength={1}
+        />
         <OrbitControls
           ref={controlsRef}
           enabled={orbitEnabled}
@@ -422,7 +504,6 @@ const Hero: React.FC = () => {
           maxDistance={20000}
           minDistance={0.5}
         />
-
         <InitialCameraView
           controlsRef={controlsRef}
           position={config.defaultPosition}
@@ -438,7 +519,6 @@ const Hero: React.FC = () => {
         />
         <ToggleOrbit onToggle={setOrbitEnabled} />
       </Canvas>
-
       <Loader />
     </div>
   );
