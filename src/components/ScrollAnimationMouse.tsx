@@ -4,7 +4,7 @@ import ICONSCROLL from '../icons/mouse-scroll.json';
 import ICONSWIPE from '../icons/mouse-swipe.json';
 import { useOrbitStore } from '../stores/orbitStore';
 
-export default function ScrollAnimationFinger() {
+const ScrollAnimationMouse: React.FC = () => {
   const isInOrbit = useOrbitStore((state) => state.isInOrbit);
   const playerRef = useRef<Player>(null);
 
@@ -35,3 +35,5 @@ export default function ScrollAnimationFinger() {
     </div>
   );
 }
+
+export default ScrollAnimationMouse;

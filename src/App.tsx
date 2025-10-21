@@ -3,6 +3,7 @@ import Hero from './components/Hero'
 import ScrollAnimationMouse from './components/ScrollAnimationMouse'
 import ScrollAnimationFinger from './components/ScrollAnimationFinger'
 import Slider from './components/Slider'
+import Projects from './components/Projects'
 import './App.css'
 
 const getWindowSafe = () => (typeof window !== 'undefined' ? window : (undefined as unknown as Window));
@@ -29,6 +30,7 @@ function App() {
     <>
       <Hero />
       {isMobileOrTablet ? <ScrollAnimationFinger /> : <ScrollAnimationMouse />}
+      <Projects />
       <Slider />
     </>
   )
