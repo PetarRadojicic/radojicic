@@ -4,6 +4,8 @@ import ScrollAnimationMouse from './components/ScrollAnimationMouse'
 import ScrollAnimationFinger from './components/ScrollAnimationFinger'
 import Slider from './components/Slider'
 import Projects from './components/Projects'
+import About from './components/About'
+import Experience from './components/Experience'
 import './App.css'
 
 const getWindowSafe = () => (typeof window !== 'undefined' ? window : (undefined as unknown as Window));
@@ -30,7 +32,12 @@ function App() {
     <>
       <Hero />
       {isMobileOrTablet ? <ScrollAnimationFinger /> : <ScrollAnimationMouse />}
+      <Slider />
+      <About />
+      <Slider />
       <Projects />
+      <Slider />
+      <Experience /> 
       <Slider />
     </>
   )

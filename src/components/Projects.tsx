@@ -90,8 +90,8 @@ const Projects: React.FC = () => {
                 rounded-lg border bg-white shadow-sm group overflow-hidden transition-all hover:shadow-lg
                 flex flex-col
                 basis-full
-                sm:basis-[calc(50%-0.75rem)]     /* 2 per row on tablet; gap-6 = 1.5rem → subtract 0.75rem each */
-                lg:basis-[calc(33.333%-1rem)]    /* 3 per row on large; two gaps → 2*1.5/3 = 1rem */
+                sm:basis-[calc(50%-0.75rem)]
+                lg:basis-[calc(33.333%-1rem)]
                 min-w-[280px] max-w-[420px]
               "
             >
