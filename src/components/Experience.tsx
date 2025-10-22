@@ -1,3 +1,6 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 interface TimelineItem {
   id: string
   title: string
@@ -8,48 +11,50 @@ interface TimelineItem {
   type: 'education' | 'work'
 }
 
-const timelineData: TimelineItem[] = [
-  {
-    id: '1',
-    title: 'Elektrotehničar informacionih tehnologija',
-    organization: 'ITHS (Information Technology High School)',
-    location: 'Beograd',
-    period: '2018 — 2022',
-    type: 'education'
-  },
-  {
-    id: '2',
-    title: 'Softversko Inžinjerstvo',
-    organization: 'Univerzitet Singidunum',
-    location: 'Beograd',
-    period: '2022',
-    type: 'education'
-  },
-  {
-    id: '3',
-    title: 'Front end developer, React programer',
-    organization: 'FactoryWW',
-    location: 'Beograd',
-    period: '2023-2024',
-    type: 'work'
-  },
-  {
-    id: '4',
-    title: 'IT support',
-    organization: 'International consulting and development',
-    location: 'Beograd',
-    period: '2024',
-    type: 'work'
-  }
-]
-
 const Experience: React.FC = () => {
+  const { t } = useTranslation();
+  
+  const timelineData: TimelineItem[] = [
+    {
+      id: '1',
+      title: t('experience.timeline.education1.title'),
+      organization: t('experience.timeline.education1.organization'),
+      location: t('experience.timeline.education1.location'),
+      period: '2018 — 2022',
+      type: 'education'
+    },
+    {
+      id: '2',
+      title: t('experience.timeline.education2.title'),
+      organization: t('experience.timeline.education2.organization'),
+      location: t('experience.timeline.education2.location'),
+      period: '2022',
+      type: 'education'
+    },
+    {
+      id: '3',
+      title: t('experience.timeline.work1.title'),
+      organization: t('experience.timeline.work1.organization'),
+      location: t('experience.timeline.work1.location'),
+      period: '2023-2024',
+      type: 'work'
+    },
+    {
+      id: '4',
+      title: t('experience.timeline.work2.title'),
+      organization: t('experience.timeline.work2.organization'),
+      location: t('experience.timeline.work2.location'),
+      period: '2024',
+      type: 'work'
+    }
+  ];
+  
   return (
     <section id="experience" className="bg-white text-black py-20 px-6">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 tracking-tight">Experience</h2>
-          <p className="text-lg text-gray-600">My educational background and professional journey</p>
+          <h2 className="text-4xl font-bold mb-4 tracking-tight">{t('experience.title')}</h2>
+          <p className="text-lg text-gray-600">{t('experience.description')}</p>
         </div>
 
         <div className="relative">
@@ -82,7 +87,7 @@ const Experience: React.FC = () => {
                              ? 'bg-black text-white' 
                              : 'bg-black text-white'
                          }`}>
-                          {item.type === 'education' ? 'Education' : 'Work Experience'}
+                          {item.type === 'education' ? t('experience.education') : t('experience.workExperience')}
                         </span>
                         <p className="text-sm text-gray-600 mt-1 font-medium">
                           {item.period}
@@ -105,11 +110,11 @@ const Experience: React.FC = () => {
            <div className="flex items-center space-x-6 text-sm">
              <div className="flex items-center space-x-2">
                <div className="w-3 h-3 rounded-full bg-black"></div>
-               <span className="text-gray-600">Education</span>
+               <span className="text-gray-600">{t('experience.education')}</span>
              </div>
              <div className="flex items-center space-x-2">
                <div className="w-3 h-3 rounded-full bg-black ring-1 ring-black ring-offset-2 ring-offset-white"></div>
-               <span className="text-gray-600">Work Experience</span>
+               <span className="text-gray-600">{t('experience.workExperience')}</span>
              </div>
            </div>
          </div>

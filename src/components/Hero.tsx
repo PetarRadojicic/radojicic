@@ -13,11 +13,9 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 import { useOrbitStore } from "../stores/orbitStore";
+import { useTranslation } from "react-i18next";
 
 const FONT_URL = "/fonts/helvetiker_bold.typeface.json";
-
-const TEXT_NAME = "Petar Radojicic";
-const TEXT_ROLE = "front-end developer";
 
 const DESKTOP_NAME_PLATE_POS: [number, number, number] = [-135, 80.2, 200];
 const DESKTOP_NAME_PLATE_ROT: [number, number, number] = [0, -0.3, 0];
@@ -324,6 +322,8 @@ const Nameplate3D: React.FC<{
   scale: number;
 }> = ({ hidden, position, rotation, scale }) => {
   const material = useTextMaterial();
+  const { t } = useTranslation();
+  
   if (hidden) return null;
 
   return (
@@ -338,7 +338,7 @@ const Nameplate3D: React.FC<{
         bevelSegments={6}
         curveSegments={24}
       >
-        {TEXT_NAME}
+        {t('hero.name')}
         <primitive object={material} attach="material" />
       </Text3D>
 
@@ -353,7 +353,7 @@ const Nameplate3D: React.FC<{
           bevelSegments={4}
           curveSegments={20}
         >
-          {TEXT_ROLE}
+          {t('hero.role')}
           <primitive object={material} attach="material" />
         </Text3D>
       </group>
@@ -364,9 +364,55 @@ const Nameplate3D: React.FC<{
 const getWindowSafe = () =>
   typeof window !== 'undefined' ? window : (undefined as unknown as Window);
 
+const LanguageToggle: React.FC<{ isMobile?: boolean }> = ({ isMobile = false }) => {
+  const { i18n } = useTranslation();
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'en' ? 'sr' : 'en';
+    i18n.changeLanguage(newLang);
+  };
+
+  const currentLang = i18n.language === 'en' ? 'EN' : 'SR';
+
+  if (isMobile) {
+    return (
+      <button
+        type="button"
+        onClick={toggleLanguage}
+        className={[
+          "px-3 py-3 rounded-full backdrop-blur",
+          "bg-white/10 border border-white/20",
+          "shadow-xl active:scale-[0.98] transition",
+          "text-white font-medium tracking-wide",
+          "select-none",
+        ].join(" ")}
+      >
+        {currentLang}
+      </button>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={toggleLanguage}
+      className={[
+        "px-4 py-2 rounded-lg backdrop-blur",
+        "bg-white/10 border border-white/20",
+        "shadow-lg hover:bg-white/20 transition",
+        "text-white font-medium",
+        "select-none",
+      ].join(" ")}
+    >
+      {currentLang}
+    </button>
+  );
+};
+
 const Hero: React.FC = () => {
   const [orbitEnabled, setOrbitEnabled] = useState(false);
   const setOrbit = useOrbitStore((state) => state.setOrbit);
+  const { t, i18n } = useTranslation();
   const [isMobileOrTablet, setIsMobileOrTablet] = useState<boolean>(() => {
     const w = getWindowSafe();
     return !!w && w.innerWidth < 1280;
@@ -423,6 +469,18 @@ const Hero: React.FC = () => {
     setOrbit(orbitEnabled);
   }, [orbitEnabled, setOrbit]);
 
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() === 's') {
+        const newLang = i18n.language === 'en' ? 'sr' : 'en';
+        i18n.changeLanguage(newLang);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [i18n]);
+
   return (
     <div
       className={`w-full box-border ${
@@ -432,30 +490,45 @@ const Hero: React.FC = () => {
       {!isMobileOrTablet &&
         (orbitEnabled ? (
           <div className="absolute top-5 left-5 text-white bg-black/60 py-4 px-6 rounded-[10px] font-mono z-10 text-4xl">
-            Press <b>T</b> to disable orbit
+            {t('hero.disableOrbit')}
           </div>
         ) : (
-          <div className="absolute top-5 left-5 text-white bg-black/60 py-4 px-6 rounded-[10px] font-mono z-10 text-4xl">
-            Press <b>T</b> to enable orbit
-          </div>
+          <>
+            <div className="absolute top-5 left-5 text-white bg-black/60 py-4 px-6 rounded-[10px] font-mono z-10 text-4xl">
+              {t('hero.toggleOrbit')}
+            </div>
+            <div className="absolute top-20 left-5 text-white bg-black/60 py-4 px-6 mt-4 rounded-[10px] font-mono z-10 text-4xl">
+              {t('hero.toggleLanguage')}
+            </div>
+            <div className="absolute top-32 left-5">
+              <LanguageToggle />
+            </div>
+          </>
         ))}
 
       {isMobileOrTablet && (
-        <button
-          type="button"
-          aria-pressed={orbitEnabled}
-          onClick={() => setOrbitEnabled((v) => !v)}
-          className={[
-            "absolute left-1/2 -translate-x-1/2 bottom-5 z-20",
-            "px-5 py-3 rounded-full backdrop-blur",
-            "bg-white/10 border border-white/20",
-            "shadow-xl active:scale-[0.98] transition",
-            "text-white font-medium tracking-wide",
-            "select-none",
-          ].join(" ")}
-        >
-          {orbitEnabled ? "Disable Orbit" : "Enable Orbit"}
-        </button>
+        <>
+          {!orbitEnabled && (
+            <div className="absolute left-1/2 -translate-x-1/2 bottom-20 z-20">
+              <LanguageToggle isMobile={true} />
+            </div>
+          )}
+          <button
+            type="button"
+            aria-pressed={orbitEnabled}
+            onClick={() => setOrbitEnabled((v) => !v)}
+            className={[
+              "absolute left-1/2 -translate-x-1/2 bottom-5 z-20",
+              "px-5 py-3 rounded-full backdrop-blur",
+              "bg-white/10 border border-white/20",
+              "shadow-xl active:scale-[0.98] transition",
+              "text-white font-medium tracking-wide",
+              "select-none",
+            ].join(" ")}
+          >
+            {orbitEnabled ? t('hero.disableOrbitButton') : t('hero.enableOrbit')}
+          </button>
+        </>
       )}
 
       <Canvas

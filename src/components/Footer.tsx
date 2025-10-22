@@ -1,4 +1,9 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 const Footer: React.FC = () => {
+  const { t } = useTranslation();
+  
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
@@ -14,7 +19,7 @@ const Footer: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-3 gap-12">
           <div className="space-y-6 text-center">
-            <h3 className="text-2xl font-bold mb-6 border-b-2 border-white pb-2 inline-block">Get In Touch</h3>
+            <h3 className="text-2xl font-bold mb-6 border-b-2 border-white pb-2 inline-block">{t('footer.getInTouch')}</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-center space-x-3">
                 <svg className="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
@@ -31,13 +36,13 @@ const Footer: React.FC = () => {
                 <svg className="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                 </svg>
-                <span className="text-gray-300">Belgrade, Serbia</span>
+                <span className="text-gray-300">{t('footer.location')}</span>
               </div>
             </div>
           </div>
 
           <div className="space-y-6 text-center">
-            <h3 className="text-2xl font-bold mb-6 border-b-2 border-white pb-2 inline-block">Follow Me</h3>
+            <h3 className="text-2xl font-bold mb-6 border-b-2 border-white pb-2 inline-block">{t('footer.followMe')}</h3>
             <div className="flex flex-col items-center space-y-4">
               <a 
                 href="https://github.com/PetarRadojicic" 
@@ -65,31 +70,31 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="space-y-6 text-center">
-            <h3 className="text-2xl font-bold mb-6 border-b-2 border-white pb-2 inline-block">Quick Links</h3>
+            <h3 className="text-2xl font-bold mb-6 border-b-2 border-white pb-2 inline-block">{t('footer.quickLinks')}</h3>
             <div className="flex flex-col items-center space-y-3">
               <button 
                 onClick={() => scrollToSection('about')}
                 className="text-gray-300 hover:text-white transition-colors cursor-pointer"
               >
-                About Me
+                {t('footer.aboutMe')}
               </button>
               <button 
                 onClick={() => scrollToSection('projects')}
                 className="text-gray-300 hover:text-white transition-colors cursor-pointer"
               >
-                Projects
+                {t('footer.projects')}
               </button>
               <button 
                 onClick={() => scrollToSection('experience')}
                 className="text-gray-300 hover:text-white transition-colors cursor-pointer"
               >
-                Experience
+                {t('footer.experience')}
               </button>
               <button 
                 onClick={() => scrollToSection('about')}
                 className="text-gray-300 hover:text-white transition-colors cursor-pointer"
               >
-                Contact
+                {t('footer.contact')}
               </button>
             </div>
           </div>
@@ -99,12 +104,12 @@ const Footer: React.FC = () => {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-center md:text-left">
               <p className="text-gray-400">
-                © {new Date().getFullYear()} Petar Radojicic. All rights reserved.
+                {t('footer.copyright')}
               </p>
             </div>
             <div className="text-center md:text-right">
               <p className="text-gray-400">
-                Built with React, TypeScript & Three.js
+                {t('footer.builtWith')}
               </p>
             </div>
           </div>

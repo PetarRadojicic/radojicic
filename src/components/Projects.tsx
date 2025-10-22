@@ -1,5 +1,6 @@
-import React, { useMemo, useState } from "react"
+import React, { useMemo, useState, useEffect } from "react"
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa"
+import { useTranslation } from "react-i18next"
 
 interface Project {
   id: string
@@ -12,56 +13,59 @@ interface Project {
   siteUrl?: string
 }
 
-const projects: Project[] = [
-  {
-    id: "1",
-    title: "Money QR",
-    description:
-      "A modern React Native personal finance tracking app with QR receipt scanning capabilities, built with Expo and TypeScript.",
-    image: "/money-qr.png",
-    tags: ["React Native", "Expo", "TypeScript"],
-    githubUrl: "https://github.com/PetarRadojicic/money-qr",
-    playStoreUrl: "https://play.google.com",
-  },
-  {
-    id: "2",
-    title: "Radojicic (This Website)",
-    description: "A modern React portfolio website built with Vite and TypeScript.",
-    image: "/radojicic.png",
-    tags: ["React", "TypeScript", "Vite"],
-    githubUrl: "https://github.com/PetarRadojicic/radojicic",
-  },
-  {
-    id: "3",
-    title: "Pet QR",
-    description:
-      "This web app is to let pet owners create and manage QR-tagged pet profiles for lost-and-found, share contact details, and purchase related PetQR products via Shopify.",
-    image: "/pet-qr.png",
-    tags: ["React", "TypeScript", "Next.js"],
-    siteUrl: "https://petqr.rs/",
-  },
-]
-
 const Projects: React.FC = () => {
-  const [selectedTag, setSelectedTag] = useState<string>("All")
+  const { t } = useTranslation()
+  const [selectedTag, setSelectedTag] = useState<string>(t('projects.all'))
+
+  useEffect(() => {
+    setSelectedTag(t('projects.all'))
+  }, [t])
+
+  const projects: Project[] = [
+    {
+      id: "1",
+      title: t('projects.projectTitles.moneyQR'),
+      description: t('projects.projectDescriptions.moneyQR'),
+      image: "/money-qr.png",
+      tags: ["React Native", "Expo", "TypeScript"],
+      githubUrl: "https://github.com/PetarRadojicic/money-qr",
+      playStoreUrl: "https://play.google.com",
+    },
+    {
+      id: "2",
+      title: t('projects.projectTitles.radojicic'),
+      description: t('projects.projectDescriptions.radojicic'),
+      image: "/radojicic.png",
+      tags: ["React", "TypeScript", "Vite"],
+      githubUrl: "https://github.com/PetarRadojicic/radojicic",
+    },
+    {
+      id: "3",
+      title: t('projects.projectTitles.petQR'),
+      description: t('projects.projectDescriptions.petQR'),
+      image: "/pet-qr.png",
+      tags: ["React", "TypeScript", "Next.js"],
+      siteUrl: "https://petqr.rs/",
+    },
+  ]
 
   const allTags = useMemo(() => {
     const tags = new Set<string>()
     projects.forEach((p) => p.tags.forEach((t) => tags.add(t)))
-    return ["All", ...Array.from(tags).sort()]
-  }, [])
+    return [t('projects.all'), ...Array.from(tags).sort()]
+  }, [t])
 
   const filteredProjects = useMemo(() => {
-    if (selectedTag === "All") return projects
+    if (selectedTag === t('projects.all')) return projects
     return projects.filter((p) => p.tags.includes(selectedTag))
-  }, [selectedTag])
+  }, [selectedTag, t])
 
   return (
     <section id="projects" className="container mx-auto px-4 py-16">
       <div className="mb-12 text-center">
-        <h1 className="mb-4 text-4xl font-bold tracking-tight text-balance">My Projects</h1>
+        <h1 className="mb-4 text-4xl font-bold tracking-tight text-balance">{t('projects.title')}</h1>
         <p className="text-lg text-muted-foreground text-pretty">
-          Explore my collection of mobile and web applications
+          {t('projects.description')}
         </p>
       </div>
 
@@ -130,7 +134,7 @@ const Projects: React.FC = () => {
                         className="flex-1 inline-flex items-center justify-center rounded-md border border-gray-300 bg-transparent hover:bg-gray-100 px-3 py-2 text-sm font-medium transition-colors"
                       >
                         <FaGithub className="mr-2 h-4 w-4" />
-                        GitHub
+                        {t('projects.github')}
                       </a>
                     )}
                     {project.playStoreUrl && (
@@ -141,7 +145,7 @@ const Projects: React.FC = () => {
                         className="flex-1 inline-flex items-center justify-center rounded-md bg-black text-white hover:bg-gray-800 px-3 py-2 text-sm font-medium transition-colors"
                       >
                         <FaExternalLinkAlt className="mr-2 h-4 w-4" />
-                        Play Store
+                        {t('projects.playStore')}
                       </a>
                     )}
                     {project.siteUrl && (
@@ -152,7 +156,7 @@ const Projects: React.FC = () => {
                         className="flex-1 inline-flex items-center justify-center rounded-md bg-black text-white hover:bg-gray-800 px-3 py-2 text-sm font-medium transition-colors"
                       >
                         <FaExternalLinkAlt className="mr-2 h-4 w-4" />
-                        Visit Site
+                        {t('projects.visitSite')}
                       </a>
                     )}
                   </div>
@@ -164,7 +168,7 @@ const Projects: React.FC = () => {
 
         {filteredProjects.length === 0 && (
           <div className="py-12 text-center">
-            <p className="text-lg text-muted-foreground">No projects found with the selected tag.</p>
+            <p className="text-lg text-muted-foreground">{t('projects.noProjects')}</p>
           </div>
         )}
       </div>

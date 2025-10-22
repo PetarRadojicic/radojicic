@@ -1,4 +1,9 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 const About: React.FC = () => {
+  const { t } = useTranslation();
+  
   return (
     <section id="about" className="bg-white text-black py-20 px-6">
       <div className="max-w-6xl mx-auto">
@@ -13,8 +18,8 @@ const About: React.FC = () => {
             </div>
 
             <div className="text-center">
-              <h1 className="text-3xl font-bold mb-2 tracking-tight">Petar Radojicic</h1>
-              <p className="text-gray-600">Frontend Developer</p>
+              <h1 className="text-3xl font-bold mb-2 tracking-tight">{t('about.name')}</h1>
+              <p className="text-gray-600">{t('about.role')}</p>
             </div>   
 
             <div className="flex gap-4">
@@ -33,37 +38,31 @@ const About: React.FC = () => {
 
           <div className="space-y-8">
             <div>
-              <h2 className="text-2xl font-bold mb-6 border-b-2 border-black pb-2 inline-block">About Me</h2>
+              <h2 className="text-2xl font-bold mb-6 border-b-2 border-black pb-2 inline-block">{t('about.title')}</h2>
               <div className="space-y-4 mt-6">
                 <p className="text-lg leading-relaxed text-gray-700">
-                  Hi there! I'm a passionate developer who loves crafting elegant solutions to complex problems. With
-                  over 3 years of experience in web development, I've had the privilege of working on projects that make
-                  a real difference in people's lives.
+                  {t('about.description1')}
                 </p>
                 <p className="text-lg leading-relaxed text-gray-700">
-                  When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects,
-                  or enjoying a good cup of coffee while reading about the latest industry trends. I believe in
-                  continuous learning and sharing knowledge with the community.
+                  {t('about.description2')}
                 </p>
                 <p className="text-lg leading-relaxed text-gray-700">
-                  I'm always excited to collaborate on innovative projects and connect with fellow developers. Let's
-                  build something amazing together!
+                  {t('about.description3')}
                 </p>
               </div>
             </div>
 
             <div className="border-t-2 border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold mb-6">Get In Touch</h2>
+              <h2 className="text-2xl font-bold mb-6">{t('about.getInTouch')}</h2>
               <p className="text-gray-700 mb-6 leading-relaxed">
-                I'm currently available for exciting opportunities. Whether you have a project in
-                mind or just want to chat about technology, feel free to reach out!
+                {t('about.contactDescription')}
               </p>
               <div className="flex justify-center md:justify-start">
                 <a 
                   href="mailto:petar@radojicic.co" 
                   className="inline-block bg-black text-white px-3 py-2 font-semibold hover:bg-gray-800 transition-colors rounded-lg text-center"
                 >
-                  Contact Me <br />
+                  {t('about.contactMe')} <br />
                   petar@radojicic.co
                 </a>
               </div>
