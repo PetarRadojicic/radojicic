@@ -6,6 +6,7 @@ import Slider from './components/Slider'
 import Projects from './components/Projects'
 import About from './components/About'
 import Experience from './components/Experience'
+import Footer from './components/Footer'
 import './App.css'
 
 const getWindowSafe = () => (typeof window !== 'undefined' ? window : (undefined as unknown as Window));
@@ -39,6 +40,7 @@ function App() {
       <Slider />
       <Experience /> 
       <Slider />
+      <Footer />
     </>
   )
 }

@@ -57,7 +57,7 @@ const Projects: React.FC = () => {
   }, [selectedTag])
 
   return (
-    <section className="container mx-auto px-4 py-16">
+    <section id="projects" className="container mx-auto px-4 py-16">
       <div className="mb-12 text-center">
         <h1 className="mb-4 text-4xl font-bold tracking-tight text-balance">My Projects</h1>
         <p className="text-lg text-muted-foreground text-pretty">
