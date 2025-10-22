@@ -68,7 +68,7 @@
     }
   },
   "footer": {
-    "copyright": "© 2024 Petar Radojicic. All rights reserved.",
+    "copyright": "© {{year}} Petar Radojicic. All rights reserved.",
     "contact": "Contact",
     "getInTouch": "Get In Touch",
     "followMe": "Follow Me",

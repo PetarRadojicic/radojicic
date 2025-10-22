@@ -5,11 +5,11 @@ const About: React.FC = () => {
   const { t } = useTranslation();
   
   return (
-    <section id="about" className="bg-white text-black py-20 px-6">
+    <section id="about" className="bg-white text-black md:py-20 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-[300px_1fr] gap-12 items-start">
           <div className="flex flex-col items-center space-y-6">
-            <div className="w-68 h-88 rounded-full overflow-hidden">
+            <div className="w-68 h-58 rounded-full overflow-hidden">
               <img 
                 src="/img/me.png" 
                 alt="Profile" 

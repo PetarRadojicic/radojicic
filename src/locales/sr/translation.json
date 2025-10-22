@@ -68,7 +68,7 @@
     }
   },
   "footer": {
-    "copyright": "© 2024 Petar Radojičić. Sva prava zadržana.",
+    "copyright": "© {{year}} Petar Radojičić. Sva prava zadržana.",
     "contact": "Kontakt",
     "getInTouch": "Kontaktiraj me",
     "followMe": "Prati me",
