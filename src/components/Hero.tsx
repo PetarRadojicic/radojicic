@@ -17,14 +17,14 @@ import { useTranslation } from "react-i18next";
 
 const FONT_URL = "/fonts/helvetiker_bold.typeface.json";
 
-const DESKTOP_NAME_PLATE_POS: [number, number, number] = [-135, 80.2, 200];
+const DESKTOP_NAME_PLATE_POS: [number, number, number] = [-105, 80.2, 200];
 const DESKTOP_NAME_PLATE_ROT: [number, number, number] = [0, -0.3, 0];
 const DESKTOP_NAME_PLATE_SCALE = 0.8;
 const DESKTOP_DEFAULT_POSITION: [number, number, number] = [-114.412, 139.705, 376.602];
 const DESKTOP_DEFAULT_TARGET: [number, number, number] = [0, 0, 0];
 const DESKTOP_TARGET_SHIFT_RIGHT = -160;
 
-const MOBILE_NAME_PLATE_POS: [number, number, number] = [1000, 400, 370];
+const MOBILE_NAME_PLATE_POS: [number, number, number] = [1000, 300, 270];
 const MOBILE_NAME_PLATE_ROT: [number, number, number] = [-0.01, 1.55, 0];
 const MOBILE_NAME_PLATE_SCALE = 4.8;
 const MOBILE_DEFAULT_POSITION: [number, number, number] = [3000, 0, 0];
@@ -338,11 +338,10 @@ const Nameplate3D: React.FC<{
         bevelSegments={6}
         curveSegments={24}
       >
-        {t('hero.name')}
+        {t('hero.title')}
         <primitive object={material} attach="material" />
       </Text3D>
-
-      <group position={[0, -10, 0]}>
+      <group position={[0, -15, 0]}>
         <Text3D
           font={FONT_URL}
           size={6}
@@ -353,7 +352,7 @@ const Nameplate3D: React.FC<{
           bevelSegments={4}
           curveSegments={20}
         >
-          {t('hero.role')}
+          {t('hero.description')}
           <primitive object={material} attach="material" />
         </Text3D>
       </group>

@@ -1,7 +1,7 @@
 {
   "hero": {
-    "name": "Petar Radojicic",
-    "role": "front-end developer",
+    "title": "Design",
+    "description": "that speaks louder than words.", 
     "toggleOrbit": "Press T to enable orbit",
     "disableOrbit": "Press T to disable orbit",
     "toggleLanguage": "Press S to toggle language",

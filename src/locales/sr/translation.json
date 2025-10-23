@@ -1,7 +1,7 @@
 {
   "hero": {
-    "name": "Petar Radojicic",
-    "role": "front-end programer",
+    "title": "Dizajn",
+    "description": "koji govori vise od reci.",
     "toggleOrbit": "Pritisnite T da omogućite orbitu",
     "disableOrbit": "Pritisnite T da onemogućite orbitu",
     "toggleLanguage": "Pritisnite S da promenite jezik",
