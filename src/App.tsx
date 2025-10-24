@@ -7,27 +7,30 @@ import './App.css'
 
 const SCENE_CONFIG = {
   modelScale: 0.5,
-  fogNear: 50,
-  fogFar: 150,
   minZoom: 5,
   maxZoom: 50,
 }
 
 const cameraPositions = [
-  { position: [0, 5, 15], target: [0, 0, 0] },
-  { position: [8, 4, 6], target: [0, 0, 0] },
-  { position: [-8, 5, 4], target: [0, 0, 0] },
-  { position: [0, 10, 8], target: [0, 0, 0] },
-  { position: [6, 3, -6], target: [0, 0, 0] },
+  { position: [75, 50, 15], target: [0, 0, 0]},
+  { position: [2.4, 7, -8.3], target: [-3, 7.1, -5.5] },
+  { position: [8.8, 4.7, -27], target: [0.4, -2.9, -0.9] },
+  { position: [22.3, 5.2, 32.3], target: [0.5, -1.8, 8.3] },
 ]
 
 function Scene({ isFreeLook, currentSection }: { isFreeLook: boolean; currentSection: number }) {
   const { scene } = useGLTF('/models/Scene.glb')
   const meshRef = useRef<THREE.Group>(null)
 
+  useEffect(() => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y = 0
+    }
+  }, [currentSection])
+
   useFrame((_, delta) => {
     if (meshRef.current && currentSection === 0 && !isFreeLook) {
-      meshRef.current.rotation.y += delta * 0.3
+      meshRef.current.rotation.y += delta * 0.1
     }
   })
 
@@ -38,7 +41,7 @@ function Scene({ isFreeLook, currentSection }: { isFreeLook: boolean; currentSec
   )
 }
 
-function CameraController({ isFreeLook, currentSection }: { isFreeLook: boolean; currentSection: number }) {
+function CameraController({ isFreeLook, currentSection, onCameraUpdate }: { isFreeLook: boolean; currentSection: number; onCameraUpdate?: (pos: [number, number, number], target: [number, number, number]) => void }) {
   const { camera } = useThree()
   const controlsRef = useRef<any>(null)
   const targetPosition = useRef(new THREE.Vector3())
@@ -82,6 +85,15 @@ function CameraController({ isFreeLook, currentSection }: { isFreeLook: boolean;
   useFrame(() => {
     if (isFreeLook) {
       isTransitioning.current = false
+      
+      if (onCameraUpdate && controlsRef.current) {
+        const pos = camera.position
+        const target = controlsRef.current.target
+        onCameraUpdate(
+          [Math.round(pos.x * 10) / 10, Math.round(pos.y * 10) / 10, Math.round(pos.z * 10) / 10],
+          [Math.round(target.x * 10) / 10, Math.round(target.y * 10) / 10, Math.round(target.z * 10) / 10]
+        )
+      }
       return
     }
 
@@ -134,7 +146,19 @@ function Lighting() {
 function App() {
   const [isFreeLook, setIsFreeLook] = useState(false)
   const [currentSection, setCurrentSection] = useState(0)
+  const [debugCameraPos, setDebugCameraPos] = useState<[number, number, number]>([0, 0, 0])
+  const [debugCameraTarget, setDebugCameraTarget] = useState<[number, number, number]>([0, 0, 0])
   const scrollContainerRef = useRef<HTMLDivElement>(null)
+
+  const handleCameraUpdate = (pos: [number, number, number], target: [number, number, number]) => {
+    setDebugCameraPos(pos)
+    setDebugCameraTarget(target)
+  }
+
+  const copyToClipboard = () => {
+    const text = `{ position: [${debugCameraPos.join(', ')}], target: [${debugCameraTarget.join(', ')}] }`
+    navigator.clipboard.writeText(text)
+  }
 
   useEffect(() => {
     const container = scrollContainerRef.current
@@ -175,7 +199,6 @@ function App() {
     { id: 'section1', title: 'Section One', subtitle: 'Placeholder Component' },
     { id: 'section2', title: 'Section Two', subtitle: 'Placeholder Component' },
     { id: 'section3', title: 'Section Three', subtitle: 'Placeholder Component' },
-    { id: 'section4', title: 'Section Four', subtitle: 'Placeholder Component' },
   ]
 
   return (
@@ -186,11 +209,10 @@ function App() {
           shadows
           gl={{ alpha: true, antialias: true }}
         >
-          <color attach="background" args={['#87CEEB']} />
-          <fog attach="fog" args={['#87CEEB', SCENE_CONFIG.fogNear, SCENE_CONFIG.fogFar]} />
+          <color attach="background" args={['#099996']} />
           <Lighting />
           <Scene isFreeLook={isFreeLook} currentSection={currentSection} />
-          <CameraController isFreeLook={isFreeLook} currentSection={currentSection} />
+          <CameraController isFreeLook={isFreeLook} currentSection={currentSection} onCameraUpdate={handleCameraUpdate} />
         </Canvas>
       </div>
 
@@ -238,11 +260,31 @@ function App() {
       )}
 
       {isFreeLook && (
-        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-30 pointer-events-none">
-          <div className="bg-white/10 backdrop-blur-[15px] rounded-2xl border border-white/20 px-8 py-4 animate-fadeInUp shadow-[0_4px_16px_rgba(0,0,0,0.3)]">
-            <p className="text-white text-[0.95rem] font-medium m-0 whitespace-nowrap">🖱️ Drag to rotate • Scroll to zoom • Right-click to pan</p>
+        <>
+          <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-30 pointer-events-none">
+            <div className="bg-white/10 backdrop-blur-[15px] rounded-2xl border border-white/20 px-8 py-4 animate-fadeInUp shadow-[0_4px_16px_rgba(0,0,0,0.3)]">
+              <p className="text-white text-[0.95rem] font-medium m-0 whitespace-nowrap">🖱️ Drag to rotate • Scroll to zoom • Right-click to pan</p>
+            </div>
           </div>
-        </div>
+          
+          <div className="fixed top-8 left-8 z-30 pointer-events-auto">
+            <div className="bg-black/80 backdrop-blur-[10px] rounded-xl border border-white/20 px-6 py-4 shadow-[0_4px_16px_rgba(0,0,0,0.5)] font-mono text-sm">
+              <div className="text-green-400 font-bold mb-2">📷 Camera Debug</div>
+              <div className="text-white/90 mb-1">
+                <span className="text-blue-300">Position:</span> [{debugCameraPos.join(', ')}]
+              </div>
+              <div className="text-white/90 mb-3">
+                <span className="text-purple-300">Target:</span> [{debugCameraTarget.join(', ')}]
+              </div>
+              <button
+                onClick={copyToClipboard}
+                className="bg-green-500/20 hover:bg-green-500/40 text-green-300 border border-green-500/50 rounded-lg px-4 py-2 text-xs font-semibold transition-all duration-200 w-full"
+              >
+                📋 Copy to Clipboard
+              </button>
+            </div>
+          </div>
+        </>
       )}
     </div>
   )
