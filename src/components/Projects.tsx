@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa'
 import { useTranslation } from 'react-i18next'
@@ -43,27 +42,9 @@ export function Projects() {
     ? PROJECTS 
     : PROJECTS.filter(p => p.tags.includes(selectedTag))
 
-  const containerVariants = {
-    initial: { opacity: 0, y: 50 },
-    animate: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.23, 1, 0.32, 1] as const
-      }
-    }
-  }
-
   return (
     <section className="min-h-screen w-full flex items-center justify-center snap-start snap-always py-20 px-6">
-      <motion.div 
-        className="max-w-7xl w-full"
-        variants={containerVariants}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true, amount: 0.2 }}
-      >
+      <div className="max-w-7xl w-full">
         <div className="bg-white/10 backdrop-blur-[20px] rounded-3xl border border-white/20 p-8 md:p-10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:bg-white/15 hover:border-white/30 transition-all duration-500 mb-12">
           <div className="mb-8 text-center">
             <h1 className="text-5xl font-bold mb-4 tracking-tight text-white drop-shadow-[0_2px_20px_rgba(255,255,255,0.3)]">
@@ -75,22 +56,19 @@ export function Projects() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <motion.button
+            <button
               onClick={() => setSelectedTag('all')}
               className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                 selectedTag === 'all'
                   ? 'bg-white/25 backdrop-blur-[20px] border border-white/30 text-white shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]'
                   : 'bg-white/10 backdrop-blur-[20px] border border-white/20 text-white/80 hover:bg-white/15 hover:border-white/25'
               }`}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.3 }}
             >
               {t('projects.all')}
-            </motion.button>
+            </button>
 
             {UNIQUE_TAGS.map((tag) => (
-              <motion.button
+              <button
                 key={tag}
                 onClick={() => setSelectedTag(tag)}
                 className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
@@ -98,19 +76,16 @@ export function Projects() {
                     ? 'bg-white/25 backdrop-blur-[20px] border border-white/30 text-white shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]'
                     : 'bg-white/10 backdrop-blur-[20px] border border-white/20 text-white/80 hover:bg-white/15 hover:border-white/25'
                 }`}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.3 }}
               >
                 {tag}
-              </motion.button>
+              </button>
             ))}
           </div>
         </div>
 
         <div className="flex flex-wrap justify-center gap-6">
           {filteredProjects.map((project) => (
-            <motion.div
+            <div
               key={project.id}
               className="
                 bg-white/10 backdrop-blur-[20px] rounded-3xl border border-white/20 
@@ -123,8 +98,6 @@ export function Projects() {
                 lg:basis-[calc(33.333%-1rem)]
                 min-w-[280px] max-w-[420px]
               "
-              whileHover={{ y: -8 }}
-              transition={{ duration: 0.3 }}
             >
               <div className="relative aspect-video overflow-hidden bg-white/5">
                 <img
@@ -157,48 +130,42 @@ export function Projects() {
 
                   <div className="flex gap-2">
                     {project.githubUrl && (
-                      <motion.a
+                      <a
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex-1 inline-flex items-center justify-center rounded-xl bg-white/10 backdrop-blur-[10px] border border-white/20 hover:bg-white/20 hover:border-white/30 px-3 py-2.5 text-sm font-medium text-white transition-all duration-300"
-                        whileHover={{ scale: 1.02, y: -2 }}
-                        whileTap={{ scale: 0.98 }}
                       >
                         <FaGithub className="mr-2 h-4 w-4" />
                         {t('projects.github')}
-                      </motion.a>
+                      </a>
                     )}
                     {project.playStoreUrl && (
-                      <motion.a
+                      <a
                         href={project.playStoreUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex-1 inline-flex items-center justify-center rounded-xl bg-white/20 backdrop-blur-[10px] border border-white/30 hover:bg-white/30 hover:border-white/40 px-3 py-2.5 text-sm font-medium text-white transition-all duration-300 shadow-[0_4px_16px_0_rgba(0,0,0,0.3)]"
-                        whileHover={{ scale: 1.02, y: -2 }}
-                        whileTap={{ scale: 0.98 }}
                       >
                         <FaExternalLinkAlt className="mr-2 h-4 w-4" />
                         {t('projects.playStore')}
-                      </motion.a>
+                      </a>
                     )}
                     {project.siteUrl && (
-                      <motion.a
+                      <a
                         href={project.siteUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex-1 inline-flex items-center justify-center rounded-xl bg-white/20 backdrop-blur-[10px] border border-white/30 hover:bg-white/30 hover:border-white/40 px-3 py-2.5 text-sm font-medium text-white transition-all duration-300 shadow-[0_4px_16px_0_rgba(0,0,0,0.3)]"
-                        whileHover={{ scale: 1.02, y: -2 }}
-                        whileTap={{ scale: 0.98 }}
                       >
                         <FaExternalLinkAlt className="mr-2 h-4 w-4" />
                         {t('projects.visitSite')}
-                      </motion.a>
+                      </a>
                     )}
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
@@ -209,7 +176,7 @@ export function Projects() {
             </p>
           </div>
         )}
-      </motion.div>
+      </div>
     </section>
   )
 }
