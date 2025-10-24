@@ -13,6 +13,7 @@ import { Hero } from './components/Hero'
 import { About } from './components/About'
 import { Projects } from './components/Projects'
 import { Experience } from './components/Experience'
+import { Footer } from './components/Footer'
 import { useScrollControl } from './hooks/useScrollControl'
 import { useFreeLookStore } from './store/useFreeLookStore'
 import './App.css'
@@ -81,6 +82,7 @@ function App() {
             return <ContentSection key={section.id} section={section} />
           }
         })}
+        <Footer />
       </div>
 
       <ScrollIndicator isVisible={!isFreeLook} />
