@@ -1,0 +1,87 @@
+{
+  "hero": {
+    "title": "Dizajn",
+    "subtitle": "koji govori glasnije od reči.",
+    "freeLook": "Slobodan pogled",
+    "languageSwitcher": "SR / EN"
+  },
+  "freeLookHUD": {
+    "exitFreeLook": "Izađi iz slobodnog pogleda",
+    "controls": "Prevuci za rotaciju • Skroluj za povećavanje/smanjenje • Desni klik za pomeranje",
+    "cameraDebug": "Kamera Debug",
+    "position": "Pozicija:",
+    "target": "Meta:",
+    "copyToClipboard": "Kopiraj u clipboard"
+  },
+  "about": {
+    "title": "O meni",
+    "name": "Petar Radojičić",
+    "role": "Front-end programer",
+    "description1": "Zdravo! Ja sam programer koji voli da stvara elegantna rešenja za složene probleme. Sa više od 3 godine iskustva u veb-razvoju, imao sam privilegiju da radim na projektima koji prave stvarnu razliku u životima ljudi.",
+    "description2": "Kada ne programiram, naći ćete me kako istražujem nove tehnologije, doprinosim projektima ili uživam u dobroj šolji kafe dok čitam o najnovijim trendovima u industriji. Verujem u kontinuirano učenje i deljenje znanja sa zajednicom.",
+    "description3": "Uvek sam uzbuđen da sarađujem na inovativnim projektima i povežem se sa kolegama programerima. Hajde da napravimo nešto neverovatno zajedno!",
+    "getInTouch": "Kontaktiraj me",
+    "contactDescription": "Trenutno sam dostupan za uzbudljive mogućnosti. Bilo da imate projekat na umu ili samo želite da razgovaramo o tehnologiji, slobodno me kontaktirajte!",
+    "contactMe": "Kontaktiraj me"
+  },
+  "projects": {
+    "title": "Moji projekti",
+    "description": "Istraži moju kolekciju mobilnih i veb-aplikacija",
+    "all": "Sve",
+    "noProjects": "Nema projekata sa izabranom oznakom.",
+    "github": "GitHub",
+    "playStore": "Play Store",
+    "visitSite": "Poseti sajt",
+    "projectDescriptions": {
+      "moneyQR": "Moderna React Native aplikacija za praćenje ličnih finansija sa QR skeniranjem računa, napravljena sa Expo i TypeScript.",
+      "radojicic": "Moderna React portfolio veb-stranica napravljena sa Vite i TypeScript.",
+      "petQR": "Ova veb-aplikacija omogućava vlasnicima kućnih ljubimaca da kreiraju i upravljaju QR-označenim profilima ljubimaca za pronalaženje izgubljenih, dele kontakt detalje i kupuju povezane PetQR proizvode preko Shopify-a."
+    },
+    "projectTitles": {
+      "moneyQR": "Money QR",
+      "radojicic": "Radojičić (Ovaj sajt)",
+      "petQR": "Pet QR"
+    }
+  },
+  "experience": {
+    "title": "Iskustvo",
+    "description": "Moje obrazovanje i profesionalni put",
+    "education": "Obrazovanje",
+    "workExperience": "Radno iskustvo",
+    "timeline": {
+      "education1": {
+        "title": "Elektrotehničar informacionih tehnologija",
+        "organization": "ITHS (Srednja škola za informacione tehnologije)",
+        "location": "Beograd"
+      },
+      "education2": {
+        "title": "Softversko inženjerstvo",
+        "organization": "Univerzitet Singidunum",
+        "location": "Beograd"
+      },
+      "work1": {
+        "title": "Front-end programer, React programer",
+        "organization": "FactoryWW",
+        "location": "Beograd"
+      },
+      "work2": {
+        "title": "IT podrška",
+        "organization": "International Consulting and Development",
+        "location": "Beograd"
+      }
+    }
+  },
+  "footer": {
+    "copyright": "© {{year}} Petar Radojičić. Sva prava zadržana.",
+    "contact": "Kontakt",
+    "getInTouch": "Kontaktiraj me",
+    "followMe": "Prati me",
+    "quickLinks": "Brze veze",
+    "aboutMe": "O meni",
+    "projects": "Projekti",
+    "experience": "Iskustvo",
+    "location": "Beograd, Srbija",
+    "builtWith": "Napravljeno pomoću Reacta, TypeScripta i Three.js-a"
+  }
+}
+

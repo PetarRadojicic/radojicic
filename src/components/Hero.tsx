@@ -1,13 +1,15 @@
-import type { SectionData } from '../data/sections'
 import { useFreeLookStore } from '../store/useFreeLookStore'
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 
-interface HeroProps {
-  section: SectionData
-}
-
-export function Hero({ section }: HeroProps) {
+export function Hero() {
   const { isFreeLook, toggleFreeLook } = useFreeLookStore()
+  const { t, i18n } = useTranslation()
+  
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'en' ? 'sr' : 'en'
+    i18n.changeLanguage(newLang)
+  }
 
   const containerVariants = {
     initial: { opacity: 0, scale: 0.8 },
@@ -55,7 +57,7 @@ export function Hero({ section }: HeroProps) {
           variants={itemVariants}
           animate={isFreeLook ? "exit" : "animate"}
         >
-          {section.title}
+          {t('hero.title')}
         </motion.h1>
         
         <motion.p 
@@ -63,7 +65,7 @@ export function Hero({ section }: HeroProps) {
           variants={itemVariants}
           animate={isFreeLook ? "exit" : "animate"}
         >
-          {section.subtitle}
+          {t('hero.subtitle')}
         </motion.p>
         
         <motion.div 
@@ -85,22 +87,23 @@ export function Hero({ section }: HeroProps) {
             whileTap={{ scale: 1, y: 0 }}
             transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] as const }}
           >
-            Free Look Mode
+            {t('hero.freeLook')}
           </motion.button>
           
           <motion.button 
-            className="bg-white/5 backdrop-blur-[20px] rounded-full border border-white/15 px-8 py-4 text-white/90 font-medium text-lg shadow-[0_8px_32px_0_rgba(0,0,0,0.2)] cursor-not-allowed opacity-70"
+            onClick={toggleLanguage}
+            className="bg-white/15 backdrop-blur-[20px] rounded-full border border-white/20 px-8 py-4 text-white font-medium text-lg shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]"
             whileHover={{ 
               scale: 1.05, 
               y: -4,
-              backgroundColor: 'rgba(255, 255, 255, 0.10)',
-              borderColor: 'rgba(255, 255, 255, 0.25)',
-              color: 'rgba(255, 255, 255, 1)'
+              backgroundColor: 'rgba(255, 255, 255, 0.25)',
+              borderColor: 'rgba(255, 255, 255, 0.30)',
+              boxShadow: '0 16px 48px 0 rgba(0,0,0,0.5)'
             }}
+            whileTap={{ scale: 1, y: 0 }}
             transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] as const }}
-            disabled
           >
-            SR / EN
+            {i18n.language.toUpperCase()} / {i18n.language === 'en' ? 'SR' : 'EN'}
           </motion.button>
         </motion.div>
       </motion.div>

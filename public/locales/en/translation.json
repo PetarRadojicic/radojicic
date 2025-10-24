@@ -1,0 +1,87 @@
+{
+  "hero": {
+    "title": "Design",
+    "subtitle": "that speaks louder than words.",
+    "freeLook": "Free Look Mode",
+    "languageSwitcher": "SR / EN"
+  },
+  "freeLookHUD": {
+    "exitFreeLook": "Exit Free Look",
+    "controls": "Drag to rotate • Scroll to zoom • Right-click to pan",
+    "cameraDebug": "Camera Debug",
+    "position": "Position:",
+    "target": "Target:",
+    "copyToClipboard": "Copy to Clipboard"
+  },
+  "about": {
+    "title": "About Me",
+    "name": "Petar Radojicic",
+    "role": "Frontend Developer",
+    "description1": "Hi there! I'm a passionate developer who loves crafting elegant solutions to complex problems. With over 3 years of experience in web development, I've had the privilege of working on projects that make a real difference in people's lives.",
+    "description2": "When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or enjoying a good cup of coffee while reading about the latest industry trends. I believe in continuous learning and sharing knowledge with the community.",
+    "description3": "I'm always excited to collaborate on innovative projects and connect with fellow developers. Let's build something amazing together!",
+    "getInTouch": "Get In Touch",
+    "contactDescription": "I'm currently available for exciting opportunities. Whether you have a project in mind or just want to chat about technology, feel free to reach out!",
+    "contactMe": "Contact Me"
+  },
+  "projects": {
+    "title": "My Projects",
+    "description": "Explore my collection of mobile and web applications",
+    "all": "All",
+    "noProjects": "No projects found with the selected tag.",
+    "github": "GitHub",
+    "playStore": "Play Store",
+    "visitSite": "Visit Site",
+    "projectDescriptions": {
+      "moneyQR": "A modern React Native personal finance tracking app with QR receipt scanning capabilities, built with Expo and TypeScript.",
+      "radojicic": "A modern React portfolio website built with Vite and TypeScript.",
+      "petQR": "This web app is to let pet owners create and manage QR-tagged pet profiles for lost-and-found, share contact details, and purchase related PetQR products via Shopify."
+    },
+    "projectTitles": {
+      "moneyQR": "Money QR",
+      "radojicic": "Radojicic (This Website)",
+      "petQR": "Pet QR"
+    }
+  },
+  "experience": {
+    "title": "Experience",
+    "description": "My educational background and professional journey",
+    "education": "Education",
+    "workExperience": "Work Experience",
+    "timeline": {
+      "education1": {
+        "title": "Information Technology Technician",
+        "organization": "ITHS (Information Technology High School)",
+        "location": "Belgrade"
+      },
+      "education2": {
+        "title": "Software Engineering",
+        "organization": "Singidunum University",
+        "location": "Belgrade"
+      },
+      "work1": {
+        "title": "Front end developer, React programmer",
+        "organization": "FactoryWW",
+        "location": "Belgrade"
+      },
+      "work2": {
+        "title": "IT support",
+        "organization": "International consulting and development",
+        "location": "Belgrade"
+      }
+    }
+  },
+  "footer": {
+    "copyright": "© {{year}} Petar Radojicic. All rights reserved.",
+    "contact": "Contact",
+    "getInTouch": "Get In Touch",
+    "followMe": "Follow Me",
+    "quickLinks": "Quick Links",
+    "aboutMe": "About Me",
+    "projects": "Projects",
+    "experience": "Experience",
+    "location": "Belgrade, Serbia",
+    "builtWith": "Built with React, TypeScript & Three.js"
+  }
+}
+

@@ -1,6 +1,7 @@
 import type { Vector3Tuple } from '../types/camera'
 import { useFreeLookStore } from '../store/useFreeLookStore'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 
 interface FreeLookHUDProps {
   isVisible: boolean
@@ -11,6 +12,7 @@ interface FreeLookHUDProps {
 
 export function FreeLookHUD({ isVisible, cameraPos, cameraTarget, onCopy }: FreeLookHUDProps) {
   const { toggleFreeLook } = useFreeLookStore()
+  const { t } = useTranslation()
 
   return (
     <AnimatePresence>
@@ -43,7 +45,7 @@ export function FreeLookHUD({ isVisible, cameraPos, cameraTarget, onCopy }: Free
               }}
               whileTap={{ scale: 1, y: 0 }}
             >
-              Exit Free Look
+              {t('freeLookHUD.exitFreeLook')}
             </motion.button>
 
             <motion.div 
@@ -58,7 +60,7 @@ export function FreeLookHUD({ isVisible, cameraPos, cameraTarget, onCopy }: Free
               }}
             >
               <p className="text-white text-[0.95rem] font-medium m-0 whitespace-nowrap">
-                🖱️ Drag to rotate • Scroll to zoom • Right-click to pan
+                {t('freeLookHUD.controls')}
               </p>
             </motion.div>
           </motion.div>
@@ -71,14 +73,14 @@ export function FreeLookHUD({ isVisible, cameraPos, cameraTarget, onCopy }: Free
             transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] as const, delay: 0.2 }}
           >
             <div className="bg-black/80 backdrop-blur-[10px] rounded-xl border border-white/20 px-6 py-4 shadow-[0_4px_16px_rgba(0,0,0,0.5)] font-mono text-sm">
-              <div className="text-green-400 font-bold mb-2">📷 Camera Debug</div>
+              <div className="text-green-400 font-bold mb-2">{t('freeLookHUD.cameraDebug')}</div>
               <motion.div 
                 className="text-white/90 mb-1"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.3 }}
               >
-                <span className="text-blue-300">Position:</span> [{cameraPos.join(', ')}]
+                <span className="text-blue-300">{t('freeLookHUD.position')}</span> [{cameraPos.join(', ')}]
               </motion.div>
               <motion.div 
                 className="text-white/90 mb-3"
@@ -86,7 +88,7 @@ export function FreeLookHUD({ isVisible, cameraPos, cameraTarget, onCopy }: Free
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5, duration: 0.3 }}
               >
-                <span className="text-purple-300">Target:</span> [{cameraTarget.join(', ')}]
+                <span className="text-purple-300">{t('freeLookHUD.target')}</span> [{cameraTarget.join(', ')}]
               </motion.div>
               <motion.button
                 onClick={onCopy}
@@ -100,7 +102,7 @@ export function FreeLookHUD({ isVisible, cameraPos, cameraTarget, onCopy }: Free
                 }}
                 whileTap={{ scale: 0.98 }}
               >
-                📋 Copy to Clipboard
+                {t('freeLookHUD.copyToClipboard')}
               </motion.button>
             </div>
           </motion.div>

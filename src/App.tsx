@@ -10,6 +10,7 @@ import { ScrollIndicator } from './components/ScrollIndicator'
 import { FreeLookHUD } from './components/FreeLookHUD'
 import { ContentSection } from './components/ContentSection'
 import { Hero } from './components/Hero'
+import { About } from './components/About'
 import { useScrollControl } from './hooks/useScrollControl'
 import { useFreeLookStore } from './store/useFreeLookStore'
 import './App.css'
@@ -65,13 +66,15 @@ function App() {
           transition: 'opacity 0.5s ease-in-out'
         }}
       >
-        {sections.map((section, index) => (
-          index === 0 ? (
-            <Hero key={section.id} section={section} />
-          ) : (
-            <ContentSection key={section.id} section={section} />
-          )
-        ))}
+        {sections.map((section, index) => {
+          if (index === 0) {
+            return <Hero key={section.id} />
+          } else if (section.id === 'about') {
+            return <About key={section.id} />
+          } else {
+            return <ContentSection key={section.id} section={section} />
+          }
+        })}
       </div>
 
       <ScrollIndicator isVisible={!isFreeLook} />
