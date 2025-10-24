@@ -11,6 +11,8 @@ import { FreeLookHUD } from './components/FreeLookHUD'
 import { ContentSection } from './components/ContentSection'
 import { Hero } from './components/Hero'
 import { About } from './components/About'
+import { Projects } from './components/Projects'
+import { Experience } from './components/Experience'
 import { useScrollControl } from './hooks/useScrollControl'
 import { useFreeLookStore } from './store/useFreeLookStore'
 import './App.css'
@@ -71,6 +73,10 @@ function App() {
             return <Hero key={section.id} />
           } else if (section.id === 'about') {
             return <About key={section.id} />
+          } else if (section.id === 'projects') {
+            return <Projects key={section.id} />
+          } else if (section.id === 'experience') {
+            return <Experience key={section.id} />
           } else {
             return <ContentSection key={section.id} section={section} />
           }
