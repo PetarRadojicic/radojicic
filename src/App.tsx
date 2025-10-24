@@ -6,15 +6,16 @@ import { sections } from './data/sections'
 import { Scene } from './components/Scene'
 import { CameraController } from './components/CameraController'
 import { Lighting } from './components/Lighting'
-import { FreeLookButton } from './components/FreeLookButton'
 import { ScrollIndicator } from './components/ScrollIndicator'
 import { FreeLookHUD } from './components/FreeLookHUD'
 import { ContentSection } from './components/ContentSection'
+import { Hero } from './components/Hero'
 import { useScrollControl } from './hooks/useScrollControl'
+import { useFreeLookStore } from './store/useFreeLookStore'
 import './App.css'
 
 function App() {
-  const [isFreeLook, setIsFreeLook] = useState(false)
+  const isFreeLook = useFreeLookStore((state) => state.isFreeLook)
   const [currentSection, setCurrentSection] = useState(0)
   const [debugCameraPos, setDebugCameraPos] = useState<Vector3Tuple>([0, 0, 0])
   const [debugCameraTarget, setDebugCameraTarget] = useState<Vector3Tuple>([0, 0, 0])
@@ -64,12 +65,15 @@ function App() {
           transition: 'opacity 0.5s ease-in-out'
         }}
       >
-        {sections.map((section) => (
-          <ContentSection key={section.id} section={section} />
+        {sections.map((section, index) => (
+          index === 0 ? (
+            <Hero key={section.id} section={section} />
+          ) : (
+            <ContentSection key={section.id} section={section} />
+          )
         ))}
       </div>
 
-      <FreeLookButton isFreeLook={isFreeLook} onClick={() => setIsFreeLook(!isFreeLook)} />
       <ScrollIndicator isVisible={!isFreeLook} />
       <FreeLookHUD 
         isVisible={isFreeLook}

@@ -5,7 +5,7 @@ export interface SectionData {
 }
 
 export const sections: SectionData[] = [
-  { id: 'hero', title: 'Welcome', subtitle: 'Immersive 3D Experience' },
+  { id: 'hero', title: 'Design', subtitle: 'that speaks louder than words.' },
   { id: 'section1', title: 'Section One', subtitle: 'Placeholder Component' },
   { id: 'section2', title: 'Section Two', subtitle: 'Placeholder Component' },
   { id: 'section3', title: 'Section Three', subtitle: 'Placeholder Component' },
