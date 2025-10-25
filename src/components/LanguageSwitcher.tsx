@@ -17,7 +17,7 @@ export function LanguageSwitcher({ className = '', variant = 'default' }: Langua
     return (
       <button
         onClick={toggleLanguage}
-        className={`px-4 py-2 text-white font-medium transition-colors hover:text-white/70 ${className}`}
+        className={`px-4 py-2 text-white font-medium transition-colors hover:text-white/70 text-shadow-[1px_1px_2px_rgba(0,0,0,0.4)] ${className}`}
       >
         {i18n.language.toUpperCase()}
       </button>
@@ -27,7 +27,7 @@ export function LanguageSwitcher({ className = '', variant = 'default' }: Langua
   return (
     <button 
       onClick={toggleLanguage}
-      className={`bg-white/15 backdrop-blur-[20px] rounded-full border border-white/20 px-8 py-4 text-white font-medium text-lg shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:bg-white/25 hover:border-white/30 transition-all duration-300 ${className}`}
+      className={`bg-white/15 backdrop-blur-[20px] rounded-full border border-white/20 px-8 py-4 text-white font-medium text-lg shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:bg-white/25 hover:border-white/30 transition-all duration-300 text-shadow-[1px_1px_3px_rgba(0,0,0,0.5)] ${className}`}
     >
       {i18n.language.toUpperCase()} / {i18n.language === 'en' ? 'SR' : 'EN'}
     </button>
