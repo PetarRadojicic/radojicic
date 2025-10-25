@@ -6,7 +6,7 @@ export function About() {
   const about = {
     email: "petar@radojicic.co",
     github: "https://github.com/PetarRadojicic",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/petarradojicic",
     photoSrc: "/img/me.webp",
   } as const
 

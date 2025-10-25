@@ -14,6 +14,7 @@ import { About } from './components/About'
 import { Projects } from './components/Projects'
 import { Experience } from './components/Experience'
 import { Footer } from './components/Footer'
+import { SEO } from './components/SEO'
 import { useScrollControl } from './hooks/useScrollControl'
 import { useFreeLookStore } from './store/useFreeLookStore'
 import './App.css'
@@ -42,9 +43,11 @@ function App() {
   })
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
-      <div className="fixed inset-0 z-0" style={{ pointerEvents: isFreeLook ? 'auto' : 'none' }}>
-        <Canvas
+    <>
+      <SEO />
+      <div className="relative w-full h-screen overflow-hidden">
+        <div className="fixed inset-0 z-0" style={{ pointerEvents: isFreeLook ? 'auto' : 'none' }}>
+          <Canvas
           camera={{ position: cameraPositions[0].position as Vector3Tuple, fov: 50 }}
           shadows
           gl={{ alpha: true, antialias: true }}
@@ -93,7 +96,8 @@ function App() {
         cameraTarget={debugCameraTarget}
         onCopy={copyToClipboard}
       />
-    </div>
+      </div>
+    </>
   )
 }
 

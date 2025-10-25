@@ -8,4 +8,6 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  // Ensure sitemap.xml and robots.txt are copied to dist
+  publicDir: 'public',
 })
