@@ -11,7 +11,7 @@ export function Hero() {
   }
 
   return (
-    <section className="h-screen w-full flex items-center justify-center snap-start snap-always">
+    <section data-section="0" className="h-screen w-full flex items-center justify-center snap-start snap-always">
       <div className="max-w-[900px] text-center px-8">
         <h1 
           className={`text-8xl font-bold mb-6 text-white tracking-tight drop-shadow-[0_4px_30px_rgba(255,255,255,0.4)] -tracking-[0.03em] leading-[1.1] transition-opacity duration-500 ${isFreeLook ? 'opacity-0' : 'opacity-100'}`}

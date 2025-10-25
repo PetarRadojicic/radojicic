@@ -16,7 +16,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="w-full py-20 px-6 snap-start snap-always flex items-center justify-center min-h-screen">
+    <footer data-section="4" className="w-full py-20 px-6 snap-start snap-always flex items-center justify-center min-h-screen">
       <div className="max-w-6xl w-full">
         <div className="bg-white/10 backdrop-blur-[20px] rounded-3xl border border-white/20 p-8 md:p-12 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:bg-white/15 hover:border-white/30 transition-all duration-500">
           <div className="grid md:grid-cols-3 gap-12">

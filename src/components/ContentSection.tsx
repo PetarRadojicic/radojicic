@@ -8,6 +8,7 @@ export function ContentSection({ section }: ContentSectionProps) {
   return (
     <section
       key={section.id}
+      data-section={section.id}
       className="h-screen w-full flex items-center justify-center snap-start snap-always"
     >
       <div className="bg-white/5 backdrop-blur-[20px] rounded-3xl border border-white/10 px-24 py-16 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:bg-white/8 hover:border-white/20 hover:shadow-[0_16px_48px_0_rgba(0,0,0,0.5)] hover:-translate-y-2 transition-all duration-[600ms] ease-[cubic-bezier(0.23,1,0.32,1)] max-w-[600px] text-center animate-fadeInScale">

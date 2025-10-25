@@ -78,11 +78,12 @@ function App() {
             return <Projects key={section.id} />
           } else if (section.id === 'experience') {
             return <Experience key={section.id} />
+          } else if (section.id === 'footer') {
+            return <Footer key={section.id} />
           } else {
             return <ContentSection key={section.id} section={section} />
           }
         })}
-        <Footer />
       </div>
 
       <ScrollIndicator isVisible={!isFreeLook} />
