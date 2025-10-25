@@ -7,7 +7,8 @@
   },
   "freeLookHUD": {
     "exitFreeLook": "Izađi iz slobodnog pogleda",
-    "controls": "Prevuci za rotaciju • Skroluj za povećavanje/smanjenje • Desni klik za pomeranje",
+    "controlsforpc": "Prevuci za rotaciju • Skroluj za zumiranje • Desni klik za pomeranje",
+    "controlsformobile": "Prevuci • Uštini • Dva prsta",
     "cameraDebug": "Kamera Debug",
     "position": "Pozicija:",
     "target": "Meta:",

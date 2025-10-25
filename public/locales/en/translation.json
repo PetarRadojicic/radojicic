@@ -7,7 +7,8 @@
   },
   "freeLookHUD": {
     "exitFreeLook": "Exit Free Look",
-    "controls": "Drag to rotate • Scroll to zoom • Right-click to pan",
+    "controlsforpc": "Drag to rotate • Scroll to zoom • Right-click to pan",
+    "controlsformobile": "Drag • Pinch • Two fingers",
     "cameraDebug": "Camera Debug",
     "position": "Position:",
     "target": "Target:",

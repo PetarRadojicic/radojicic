@@ -1,6 +1,11 @@
+import { useEffect, useRef } from 'react'
+import lottie from 'lottie-web'
 import type { Vector3Tuple } from '../types/camera'
 import { useFreeLookStore } from '../store/useFreeLookStore'
 import { useTranslation } from 'react-i18next'
+import { useIsMobileOrTablet } from '../hooks/useMediaQuery'
+import mouseMoveIcon from '../icons/mouse-move.json'
+import fingerMoveIcon from '../icons/finger-move.json'
 
 interface FreeLookHUDProps {
   isVisible: boolean
@@ -12,12 +17,38 @@ interface FreeLookHUDProps {
 export function FreeLookHUD({ isVisible, cameraPos, cameraTarget, onCopy }: FreeLookHUDProps) {
   const { toggleFreeLook } = useFreeLookStore()
   const { t } = useTranslation()
+  const isMobileOrTablet = useIsMobileOrTablet()
+  const iconContainerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!iconContainerRef.current || !isVisible) return
+
+    const iconData = isMobileOrTablet ? fingerMoveIcon : mouseMoveIcon
+
+    const animation = lottie.loadAnimation({
+      container: iconContainerRef.current,
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      animationData: iconData,
+    })
+
+    return () => {
+      animation.destroy()
+    }
+  }, [isMobileOrTablet, isVisible])
 
   return (
     <>
       {isVisible && (
         <>
           <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-30 flex flex-col items-center gap-4">
+            <div 
+              ref={iconContainerRef}
+              className="w-16 h-16 pointer-events-none"
+              style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
+            />
+            
             <button 
               onClick={toggleFreeLook}
               className="bg-white/20 backdrop-blur-[20px] rounded-full border border-white/30 px-10 py-5 text-white font-semibold text-xl shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] pointer-events-auto hover:bg-white/30 hover:border-white/40 transition-all duration-300"
@@ -27,7 +58,7 @@ export function FreeLookHUD({ isVisible, cameraPos, cameraTarget, onCopy }: Free
 
             <div className="bg-white/10 backdrop-blur-[15px] rounded-2xl border border-white/20 px-8 py-4 shadow-[0_4px_16px_rgba(0,0,0,0.3)] pointer-events-none">
               <p className="text-white text-[0.95rem] font-medium m-0 whitespace-nowrap">
-                {t('freeLookHUD.controls')}
+                {isMobileOrTablet ? t('freeLookHUD.controlsformobile') : t('freeLookHUD.controlsforpc')}
               </p>
             </div>
           </div>

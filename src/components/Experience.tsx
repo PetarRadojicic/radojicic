@@ -49,7 +49,7 @@ export function Experience() {
   ]
 
   return (
-    <section data-section="3" className="min-h-screen w-full flex items-center justify-center snap-start snap-always py-20 px-6">
+    <section id="experience" data-section="3" className="min-h-screen w-full flex items-center justify-center snap-start snap-always py-20 px-6">
       <div className="max-w-5xl w-full">
         <div className="bg-white/10 backdrop-blur-[20px] rounded-3xl border border-white/20 p-8 md:p-10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:bg-white/15 hover:border-white/30 transition-all duration-500 mb-12">
           <div className="text-center">

@@ -11,7 +11,7 @@ export function About() {
   } as const
 
   return (
-    <section data-section="1" className="min-h-screen w-full flex items-center justify-center snap-start snap-always py-20 px-6">
+    <section id="about" data-section="1" className="min-h-screen w-full flex items-center justify-center snap-start snap-always py-20 px-6">
       <div className="max-w-6xl w-full">
         <div className="grid md:grid-cols-[300px_1fr] gap-12 items-start">
           <div className="bg-white/10 backdrop-blur-[20px] rounded-3xl border border-white/20 p-8 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:bg-white/15 hover:border-white/30 transition-all duration-500 flex flex-col items-center space-y-6">
