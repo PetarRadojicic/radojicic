@@ -66,9 +66,6 @@ radojicic/
 │   ├── img/                    # Images and assets
 │   │   ├── me.webp
 │   │   └── projects/
-│   ├── locales/                # Translation files
-│   │   ├── en/translation.json
-│   │   └── sr/translation.json
 │   ├── models/                 # 3D models
 │   │   └── Scene.glb
 │   ├── robots.txt
@@ -100,6 +97,9 @@ radojicic/
 │   │   ├── finger-scroll.json
 │   │   ├── mouse-move.json
 │   │   └── mouse-scroll.json
+│   ├── locales/                # Translation files
+│   │   ├── en/translation.json
+│   │   └── sr/translation.json
 │   ├── store/                  # State management
 │   │   └── useFreeLookStore.ts
 │   ├── types/                  # TypeScript definitions
@@ -188,7 +188,7 @@ export const SCENE_CONFIG = {
 
 ### Translations
 
-Add or modify translations in `public/locales/{language}/translation.json`:
+Add or modify translations in `src/locales/{language}/translation.json`:
 
 ```json
 {

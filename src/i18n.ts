@@ -15,8 +15,8 @@ import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
 // Import translation files for supported languages
-import enTranslation from '../public/locales/en/translation.json'
-import srTranslation from '../public/locales/sr/translation.json'
+import enTranslation from './locales/en/translation.json'
+import srTranslation from './locales/sr/translation.json'
 
 // Initialize i18n with configuration
 i18n
