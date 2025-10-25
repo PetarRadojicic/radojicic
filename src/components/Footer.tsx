@@ -1,10 +1,32 @@
+/**
+ * Footer Component
+ * 
+ * Final section of the portfolio containing contact information, social links,
+ * navigation shortcuts, and copyright information.
+ * 
+ * Layout:
+ * - Three-column grid (contact info, social links, quick navigation)
+ * - Bottom section with copyright and technology credits
+ * 
+ * Features:
+ * - Smooth scroll to section functionality
+ * - Social media links (GitHub, LinkedIn)
+ * - Dynamic current year display
+ * - Glassmorphism design
+ * - Internationalized content
+ */
+
 import { useTranslation } from 'react-i18next'
 
 export function Footer() {
   const { t } = useTranslation()
   
+  // Get current year for copyright notice
   const currentYear = new Date().getFullYear()
   
+  /**
+   * Smoothly scrolls to a specific section by ID
+   */
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
@@ -19,7 +41,9 @@ export function Footer() {
     <footer data-section="4" className="w-full py-20 px-6 snap-start snap-always flex items-center justify-center min-h-screen">
       <div className="max-w-6xl w-full">
         <div className="bg-white/10 backdrop-blur-[20px] rounded-3xl border border-white/20 p-8 md:p-12 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:bg-white/15 hover:border-white/30 transition-all duration-500">
+          {/* Three-column grid layout */}
           <div className="grid md:grid-cols-3 gap-12">
+            {/* Column 1: Contact Information */}
             <div className="space-y-6 text-center">
               <h3 className="text-2xl font-bold mb-6 text-white tracking-tight drop-shadow-[0_2px_20px_rgba(0, 0, 0,0.3)] text-shadow-[1px_1px_4px_rgba(0,0,0,0.6),0_0_10px_rgba(0, 0, 0,0.2)] border-b-2 border-white/30 pb-2 inline-block">
                 {t('footer.getInTouch')}
@@ -47,6 +71,7 @@ export function Footer() {
               </div>
             </div>
 
+            {/* Column 2: Social Media Links */}
             <div className="space-y-6 text-center">
               <h3 className="text-2xl font-bold mb-6 text-white tracking-tight drop-shadow-[0_2px_20px_rgba(0, 0, 0,0.3)] text-shadow-[1px_1px_4px_rgba(0,0,0,0.6),0_0_10px_rgba(0, 0, 0,0.2)] border-b-2 border-white/30 pb-2 inline-block">
                 {t('footer.followMe')}
@@ -77,10 +102,12 @@ export function Footer() {
               </div>
             </div>
 
+            {/* Column 3: Quick Navigation Links */}
             <div className="space-y-6 text-center">
               <h3 className="text-2xl font-bold mb-6 text-white tracking-tight drop-shadow-[0_2px_20px_rgba(0, 0, 0,0.3)] text-shadow-[1px_1px_4px_rgba(0,0,0,0.6),0_0_10px_rgba(0, 0, 0,0.2)] border-b-2 border-white/30 pb-2 inline-block">
                 {t('footer.quickLinks')}
               </h3>
+              {/* Navigation buttons */}
               <div className="flex flex-col items-center space-y-3">
                 <button 
                   onClick={() => scrollToSection('about')}
@@ -110,13 +137,16 @@ export function Footer() {
             </div>
           </div>
 
+          {/* Bottom section: Copyright and credits */}
           <div className="border-t-2 border-white/20 mt-12 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+              {/* Copyright notice */}
               <div className="text-center md:text-left">
                 <p className="text-white/70 drop-shadow-[0_1px_10px_rgba(0, 0, 0,0.2)] text-shadow-[1px_1px_2px_rgba(0,0,0,0.4)]">
                   {t('footer.copyright', { year: currentYear })}
                 </p>
               </div>
+              {/* Technology credits */}
               <div className="text-center md:text-right">
                 <p className="text-white/70 drop-shadow-[0_1px_10px_rgba(0, 0, 0,0.2)] text-shadow-[1px_1px_2px_rgba(0,0,0,0.4)]">
                   {t('footer.builtWith')}

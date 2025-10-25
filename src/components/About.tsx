@@ -1,8 +1,25 @@
+/**
+ * About Component
+ * 
+ * Displays personal information, professional background, and contact details.
+ * 
+ * Layout:
+ * - Left sidebar: Profile photo and social links
+ * - Right content: About me description and contact information
+ * 
+ * Features:
+ * - Glassmorphism design with backdrop blur effects
+ * - Hover animations for interactive elements
+ * - Responsive grid layout
+ * - Social media integration (GitHub, LinkedIn)
+ */
+
 import { useTranslation } from 'react-i18next'
 
 export function About() {
   const { t } = useTranslation()
   
+  // Personal information constants
   const about = {
     email: "petar@radojicic.co",
     github: "https://github.com/PetarRadojicic",
@@ -13,8 +30,11 @@ export function About() {
   return (
     <section id="about" data-section="1" className="min-h-screen w-full flex items-center justify-center snap-start snap-always py-20 px-6">
       <div className="max-w-6xl w-full">
+        {/* Two-column layout: sidebar + content */}
         <div className="grid md:grid-cols-[300px_1fr] gap-12 items-start">
+          {/* Left sidebar: Profile card */}
           <div className="bg-white/10 backdrop-blur-[20px] rounded-3xl border border-white/20 p-8 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:bg-white/15 hover:border-white/30 transition-all duration-500 flex flex-col items-center space-y-6">
+            {/* Profile photo */}
             <div className="w-56 h-56 rounded-full overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] border-4 border-white/20">
               <img
                 src={about.photoSrc}
@@ -24,6 +44,7 @@ export function About() {
               />
             </div>
 
+            {/* Name and role */}
             <div className="text-center">
               <h1 className="text-3xl font-bold mb-2 tracking-tight text-white drop-shadow-[0_2px_20px_rgba(0, 0, 0,0.3)] text-shadow-[1px_1px_4px_rgba(0,0,0,0.6),0_0_10px_rgba(0, 0, 0,0.2)]">
                 {t('about.name')}
@@ -33,6 +54,7 @@ export function About() {
               </p>
             </div>
 
+            {/* Social media links */}
             <div className="flex gap-4">
               <a
                 href={about.github}
@@ -59,7 +81,9 @@ export function About() {
             </div>
           </div>
 
+          {/* Right content: About sections */}
           <div className="space-y-8">
+            {/* About Me section */}
             <div>
               <div className="bg-white/10 backdrop-blur-[20px] rounded-3xl border border-white/20 p-8 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:bg-white/15 hover:border-white/30 transition-all duration-500">
                 <h2 className="text-3xl font-bold mb-6 text-white tracking-tight drop-shadow-[0_2px_20px_rgba(0, 0, 0,0.3)] text-shadow-[1px_1px_4px_rgba(0,0,0,0.6),0_0_10px_rgba(0, 0, 0,0.2)] border-b-2 border-white/30 pb-3 inline-block">
@@ -79,6 +103,7 @@ export function About() {
               </div>
             </div>
 
+            {/* Contact section */}
             <div className="bg-white/10 backdrop-blur-[20px] rounded-3xl border border-white/20 p-8 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:bg-white/15 hover:border-white/30 transition-all duration-500">
               <h2 className="text-3xl font-bold mb-6 text-white tracking-tight drop-shadow-[0_2px_20px_rgba(0, 0, 0,0.3)] text-shadow-[1px_1px_4px_rgba(0,0,0,0.6),0_0_10px_rgba(0, 0, 0,0.2)]">
                 {t('about.getInTouch')}
