@@ -89,7 +89,7 @@ export function Footer() {
                   <span className="font-medium text-shadow-[1px_1px_2px_rgba(0,0,0,0.4)]">GitHub</span>
                 </a>
                 <a 
-                  href="#" 
+                  href="https://www.linkedin.com/in/petarradojicic/" 
                   className="flex items-center space-x-3 text-white/80 hover:text-white transition-colors drop-shadow-[0_1px_10px_rgba(0, 0, 0,0.2)] text-shadow-[1px_1px_2px_rgba(0,0,0,0.4)]"
                   target="_blank"
                   rel="noopener noreferrer"

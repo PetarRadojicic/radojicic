@@ -58,3 +58,6 @@ export function Scene({ isFreeLook, currentSection }: SceneProps) {
   )
 }
 
+// Preload the model for better loading performance
+useGLTF.preload('/models/Scene.glb')
+

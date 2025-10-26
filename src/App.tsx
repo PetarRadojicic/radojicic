@@ -13,7 +13,7 @@
  */
 
 import { Canvas } from '@react-three/fiber'
-import { useRef, useState } from 'react'
+import { Suspense, useRef, useState } from 'react'
 import { cameraPositions } from './config/scene'
 import type { Vector3Tuple } from './types/camera'
 import { sections } from './data/sections'
@@ -29,6 +29,7 @@ import { Projects } from './components/Projects'
 import { Experience } from './components/Experience'
 import { Footer } from './components/Footer'
 import { SEO } from './components/SEO'
+import { LoadingScreen } from './components/LoadingScreen'
 import { useScrollControl } from './hooks/useScrollControl'
 import { useFreeLookStore } from './store/useFreeLookStore'
 import './App.css'
@@ -36,6 +37,9 @@ import './App.css'
 function App() {
   // Get free-look mode state from Zustand store
   const isFreeLook = useFreeLookStore((state) => state.isFreeLook)
+  
+  // Track if the experience has started (after loading completes)
+  const [started, setStarted] = useState(false)
   
   // Track current section for camera positioning
   const [currentSection, setCurrentSection] = useState(0)
@@ -76,6 +80,9 @@ function App() {
       {/* SEO meta tags and structured data */}
       <SEO />
       
+      {/* Loading Screen */}
+      <LoadingScreen started={started} onStarted={() => setStarted(true)} />
+      
       <div className="relative w-full h-screen overflow-hidden">
         {/* 
           Three.js Canvas Layer (background)
@@ -91,18 +98,20 @@ function App() {
           {/* Background color for the 3D scene */}
           <color attach="background" args={['#099996']} />
           
-          {/* Scene lighting setup */}
-          <Lighting />
-          
-          {/* 3D model/scene */}
-          <Scene isFreeLook={isFreeLook} currentSection={currentSection} />
-          
-          {/* Camera animation controller */}
-          <CameraController 
-            isFreeLook={isFreeLook} 
-            currentSection={currentSection} 
-            onCameraUpdate={handleCameraUpdate} 
-          />
+          <Suspense fallback={null}>
+            {/* Scene lighting setup */}
+            <Lighting />
+            
+            {/* 3D model/scene */}
+            <Scene isFreeLook={isFreeLook} currentSection={currentSection} />
+            
+            {/* Camera animation controller */}
+            <CameraController 
+              isFreeLook={isFreeLook} 
+              currentSection={currentSection} 
+              onCameraUpdate={handleCameraUpdate} 
+            />
+          </Suspense>
         </Canvas>
       </div>
 
