@@ -27,15 +27,6 @@ export function Lighting() {
       
       {/* Point light from center-top - adds extra illumination */}
       <pointLight position={[0, 5, 0]} intensity={0.8} />
-      
-      {/* Spotlight from directly above - focused dramatic lighting */}
-      <spotLight
-        position={[0, 10, 0]}
-        angle={0.3} // Cone angle (narrow beam)
-        penumbra={1} // Edge softness (0=hard, 1=soft)
-        intensity={0.5}
-        castShadow
-      />
     </>
   )
 }

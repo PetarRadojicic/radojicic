@@ -71,6 +71,7 @@ function App() {
           camera={{ position: cameraPositions[0].position, fov: 50 }}
           shadows
           gl={{ alpha: true, antialias: true }}
+          performance={{ min: 0.5 }}
         >
           {/* Background color for the 3D scene */}
           <color attach="background" args={['#099996']} />
