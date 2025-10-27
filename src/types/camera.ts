@@ -32,8 +32,5 @@ export interface CameraControllerProps {
   
   /** Current section index (0-based) */
   currentSection: number
-  
-  /** Optional callback for camera position updates (used for debug HUD) */
-  onCameraUpdate?: (pos: Vector3Tuple, target: Vector3Tuple) => void
 }
 

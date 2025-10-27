@@ -9,7 +9,6 @@
  * - Smooth camera transitions between sections using lerp interpolation
  * - Orbit controls for free-look mode (pan, zoom, rotate)
  * - Configurable camera constraints (min/max zoom, polar angles)
- * - Real-time camera position debugging callback
  * - Custom event handling for section changes
  * 
  * Camera Modes:
@@ -24,7 +23,7 @@ import * as THREE from 'three'
 import { cameraPositions, SCENE_CONFIG } from '../config/scene'
 import type { CameraControllerProps, Vector3Tuple } from '../types/camera'
 
-export function CameraController({ isFreeLook, currentSection, onCameraUpdate }: CameraControllerProps) {
+export function CameraController({ isFreeLook, currentSection }: CameraControllerProps) {
   const { camera } = useThree()
   
   // Reference to OrbitControls component (used in free-look mode)
@@ -85,22 +84,12 @@ export function CameraController({ isFreeLook, currentSection, onCameraUpdate }:
 
   /**
    * Animation loop - runs every frame
-   * Handles camera transitions and debug updates
+   * Handles camera transitions
    */
   useFrame(() => {
-    // In free-look mode: update debug info and skip transitions
+    // In free-look mode: skip transitions
     if (isFreeLook) {
       isTransitioning.current = false
-      
-      // Send camera position to debug HUD (if callback provided)
-      if (onCameraUpdate && controlsRef.current) {
-        const pos = camera.position
-        const target = controlsRef.current.target
-        onCameraUpdate(
-          [Math.round(pos.x * 10) / 10, Math.round(pos.y * 10) / 10, Math.round(pos.z * 10) / 10],
-          [Math.round(target.x * 10) / 10, Math.round(target.y * 10) / 10, Math.round(target.z * 10) / 10]
-        )
-      }
       return
     }
 

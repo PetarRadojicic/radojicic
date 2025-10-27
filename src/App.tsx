@@ -9,13 +9,11 @@
  * - Free-look mode allowing users to explore the 3D scene manually
  * - Section-based layout (Hero, About, Projects, Experience, Footer)
  * - Smooth camera animations between sections
- * - Debug tools for camera positioning (visible in free-look mode)
  */
 
 import { Canvas } from '@react-three/fiber'
 import { Suspense, useRef, useState } from 'react'
 import { cameraPositions } from './config/scene'
-import type { Vector3Tuple } from './types/camera'
 import { sections } from './data/sections'
 import { Scene } from './components/Scene'
 import { CameraController } from './components/CameraController'
@@ -44,29 +42,8 @@ function App() {
   // Track current section for camera positioning
   const [currentSection, setCurrentSection] = useState(0)
   
-  // Debug state for displaying camera position and target in free-look mode
-  const [debugCameraPos, setDebugCameraPos] = useState<Vector3Tuple>([0, 0, 0])
-  const [debugCameraTarget, setDebugCameraTarget] = useState<Vector3Tuple>([0, 0, 0])
-  
   // Reference to the scrollable content container
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
-
-  /**
-   * Callback for camera position updates (used for debug display)
-   */
-  const handleCameraUpdate = (pos: Vector3Tuple, target: Vector3Tuple) => {
-    setDebugCameraPos(pos)
-    setDebugCameraTarget(target)
-  }
-
-  /**
-   * Copy current camera position and target to clipboard
-   * Useful for developers to capture camera positions for configuration
-   */
-  const copyToClipboard = () => {
-    const text = `{ position: [${debugCameraPos.join(', ')}], target: [${debugCameraTarget.join(', ')}] }`
-    navigator.clipboard.writeText(text)
-  }
 
   // Set up scroll control to sync camera with section changes
   useScrollControl({
@@ -91,7 +68,7 @@ function App() {
         */}
         <div className="fixed inset-0 z-0" style={{ pointerEvents: isFreeLook ? 'auto' : 'none' }}>
           <Canvas
-          camera={{ position: cameraPositions[0].position as Vector3Tuple, fov: 50 }}
+          camera={{ position: cameraPositions[0].position, fov: 50 }}
           shadows
           gl={{ alpha: true, antialias: true }}
         >
@@ -109,7 +86,6 @@ function App() {
             <CameraController 
               isFreeLook={isFreeLook} 
               currentSection={currentSection} 
-              onCameraUpdate={handleCameraUpdate} 
             />
           </Suspense>
         </Canvas>
@@ -151,13 +127,8 @@ function App() {
       {/* Scroll indicator (visible in normal mode) */}
       <ScrollIndicator isVisible={!isFreeLook} />
       
-      {/* Free-look mode HUD with controls and debug info */}
-      <FreeLookHUD 
-        isVisible={isFreeLook}
-        cameraPos={debugCameraPos}
-        cameraTarget={debugCameraTarget}
-        onCopy={copyToClipboard}
-      />
+      {/* Free-look mode HUD with controls */}
+      <FreeLookHUD isVisible={isFreeLook} />
       </div>
     </>
   )
