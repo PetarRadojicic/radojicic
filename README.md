@@ -1,10 +1,13 @@
 # Petar Radojicic - Portfolio
 
+test  
+  
 A modern, interactive 3D portfolio website built with React, Three.js, and TypeScript. Features a unique scroll-based 3D camera system with an optional free-look mode for exploring the scene.
 
 ## 🌟 Features
 
 ### Core Functionality
+
 - **3D Interactive Scene** - GLTF 3D model with smooth camera animations
 - **Scroll-Based Camera** - Camera automatically transitions between predefined positions as you scroll
 - **Free-Look Mode** - Manual camera controls with OrbitControls for exploring the 3D scene
@@ -13,14 +16,20 @@ A modern, interactive 3D portfolio website built with React, Three.js, and TypeS
 - **Glassmorphism UI** - Modern frosted glass effect design
 - **SEO Optimized** - Rich meta tags and Schema.org structured data
 
+
+
 ### Sections
+
 - **Hero** - Landing section with animated 3D model
 - **About** - Personal information, skills, and contact details
 - **Projects** - Portfolio projects with technology filtering
 - **Experience** - Timeline of work experience and education
 - **Footer** - Contact information and quick navigation
 
+
+
 ### Technical Features
+
 - Server-Side Rendering (SSR) ready
 - TypeScript for type safety
 - Zustand for state management
@@ -28,35 +37,60 @@ A modern, interactive 3D portfolio website built with React, Three.js, and TypeS
 - Lottie animations for UI interactions
 - Custom hooks for scroll and media query management
 
+
+
 ## 🚀 Tech Stack
 
+
+
 ### Frontend Framework
+
 - **React 19** - UI library
 - **TypeScript** - Type safety
 - **Vite** - Build tool and dev server
 
+
+
 ### 3D Graphics
+
 - **Three.js** - 3D library
 - **@react-three/fiber** - React renderer for Three.js
 - **@react-three/drei** - Useful helpers for R3F
 
+
+
 ### Styling
+
 - **Tailwind CSS 4** - Utility-first CSS framework
 - **PostCSS** - CSS processing
 
+
+
 ### State Management
+
 - **Zustand** - Lightweight state management
 
+
+
 ### Internationalization
+
 - **i18next** - Translation framework
 - **react-i18next** - React bindings for i18next
 
+
+
 ### Animations
+
 - **Lottie** - Vector animations
 
+
+
 ### SEO
+
 - **react-helmet-async** - Dynamic meta tags
 - **Schema.org** - Structured data for search engines
+
+
 
 ## 📁 Project Structure
 
@@ -115,34 +149,40 @@ radojicic/
 └── tailwind.config.js
 ```
 
+
+
 ## 🛠️ Installation
 
+
+
 ### Prerequisites
+
 - Node.js 18+ 
 - npm or yarn
+
+
 
 ### Setup
 
 1. **Clone the repository**
-   ```bash
+  ```bash
    git clone https://github.com/PetarRadojicic/radojicic.git
    cd radojicic
-   ```
-
+  ```
 2. **Install dependencies**
-   ```bash
+  ```bash
    npm install
-   ```
-
+  ```
 3. **Start development server**
-   ```bash
+  ```bash
    npm run dev
-   ```
-
+  ```
 4. **Open in browser**
-   ```
+  ```
    http://localhost:5173
-   ```
+  ```
+
+
 
 ## 📜 Available Scripts
 
@@ -158,7 +198,11 @@ npm run preview      # Preview production build
 npm run lint         # Run ESLint
 ```
 
+
+
 ## ⚙️ Configuration
+
+
 
 ### Camera Positions
 
@@ -186,6 +230,8 @@ export const SCENE_CONFIG = {
 }
 ```
 
+
+
 ### Translations
 
 Add or modify translations in `src/locales/{language}/translation.json`:
@@ -199,7 +245,11 @@ Add or modify translations in `src/locales/{language}/translation.json`:
 }
 ```
 
+
+
 ## 🎨 Customization
+
+
 
 ### Adding New Sections
 
@@ -208,6 +258,8 @@ Add or modify translations in `src/locales/{language}/translation.json`:
 3. Add camera position to `src/config/scene.ts`
 4. Import and render in `src/App.tsx`
 
+
+
 ### Changing the 3D Model
 
 Replace `public/models/Scene.glb` with your own GLTF model. The model is automatically loaded by the Scene component.
@@ -215,16 +267,22 @@ Replace `public/models/Scene.glb` with your own GLTF model. The model is automat
 ### Styling
 
 The project uses Tailwind CSS. Modify `tailwind.config.js` for theme customization:
+
 - Colors
 - Fonts
 - Spacing
 - Breakpoints
 
+
+
 ## 🎯 Key Features Explained
+
+
 
 ### Free-Look Mode
 
 Toggle with the button on the hero section to manually control the camera:
+
 - **Desktop:** Click and drag to rotate, scroll to zoom
 - **Mobile:** Touch and drag to rotate, pinch to zoom
 
@@ -240,6 +298,8 @@ The app uses viewport center detection to determine which section is active and 
 
 ## 🌐 Deployment
 
+
+
 ### Build for Production
 
 ```bash
@@ -247,15 +307,20 @@ npm run build:production
 ```
 
 This will:
+
 1. Update the sitemap
 2. Build optimized production files
 3. Output to `dist/` directory
+
+
 
 ### Deploy to Netlify/Vercel
 
 1. Connect your repository
 2. Set build command: `npm run build:production`
 3. Set publish directory: `dist`
+
+
 
 ### Environment Variables
 
@@ -280,20 +345,31 @@ Device-specific UI elements automatically adjust (e.g., scroll icons).
 
 ## 🐛 Troubleshooting
 
+
+
 ### 3D Model Not Loading
+
 - Ensure `Scene.glb` exists in `public/models/`
 - Check browser console for errors
 - Verify GLTF file is valid
 
+
+
 ### Camera Not Moving on Scroll
+
 - Check that sections have `data-section` attributes
 - Verify camera positions array length matches section count
 - Ensure scroll container ref is properly attached
 
+
+
 ### Translations Not Working
+
 - Verify JSON files are valid in `public/locales/`
 - Check browser console for i18n errors
 - Ensure language codes match (en, sr)
+
+
 
 ## 📄 License
 
@@ -302,10 +378,13 @@ This project is open source and available under the MIT License.
 ## 👤 Contact
 
 **Petar Radojicic**
+
 - Website: [radojicic.co](https://radojicic.co)
-- Email: petar@radojicic.co
+- Email: [petar@radojicic.co](mailto:petar@radojicic.co)
 - GitHub: [@PetarRadojicic](https://github.com/PetarRadojicic)
 - LinkedIn: [petarradojicic](https://linkedin.com/in/petarradojicic)
+
+
 
 ## 🙏 Acknowledgments
 
