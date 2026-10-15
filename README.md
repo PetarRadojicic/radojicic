@@ -1,6 +1,6 @@
 # Petar Radojicic - Portfolio
 
-test2
+test3
   
 A modern, interactive 3D portfolio website built with React, Three.js, and TypeScript. Features a unique scroll-based 3D camera system with an optional free-look mode for exploring the scene.
 
